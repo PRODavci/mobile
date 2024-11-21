@@ -2,18 +2,27 @@ package com.mireascanner
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
+    private val mainViewModel by viewModels<MainViewModel>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setupSplashScreen()
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
@@ -23,6 +32,21 @@ class MainActivity : AppCompatActivity() {
         }
 
         setupNavigation()
+    }
+
+    private fun setupSplashScreen() {
+        var keepSplashScreen = true
+        lifecycleScope.launch {
+            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                mainViewModel.isLoading.collect {
+                    keepSplashScreen = it
+                }
+            }
+        }
+
+        installSplashScreen().setKeepOnScreenCondition {
+            keepSplashScreen
+        }
     }
 
     private fun setupNavigation() {
