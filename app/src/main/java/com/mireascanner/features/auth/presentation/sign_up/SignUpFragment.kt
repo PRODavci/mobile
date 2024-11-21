@@ -3,6 +3,7 @@ package com.mireascanner.features.auth.presentation.sign_up
 import androidx.fragment.app.viewModels
 import android.os.Bundle
 import android.util.Log
+import android.util.Patterns
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -35,8 +36,35 @@ class SignUpFragment : Fragment() {
     ): View {
         _binding = FragmentSignUpBinding.inflate(inflater, container, false)
         observeViewModel()
-        viewModel.handleAction(SignUpAction.SignUp("1234512asd3@mail.com", "12345678"))
+        initUi()
         return binding.root
+    }
+
+    private fun initUi() {
+        binding.btnSignUp.setOnClickListener {
+            binding.inputLayoutRegistrationEmail.isErrorEnabled = false
+            binding.inputLayoutRegistrationPasswordRepeat.isErrorEnabled = false
+            binding.inputLayoutRegistrationPassword.isErrorEnabled = false
+            if(binding.etRegistrationPassword.text.toString() != binding.etRegistrationPasswordRepeat.text.toString()){
+                binding.inputLayoutRegistrationPasswordRepeat.error = requireContext().getString(R.string.error_passwords_not_the_same)
+                binding.inputLayoutRegistrationPassword.error = requireContext().getString(R.string.error_passwords_not_the_same)
+            }else if(binding.etRegistrationPassword.text.toString().isBlank()){
+                binding.inputLayoutRegistrationPassword.error = requireContext().getString(R.string.error_empty_field)
+            }else if(binding.etRegistrationEmail.text.toString().isBlank()){
+                binding.inputLayoutRegistrationEmail.error = requireContext().getString(R.string.error_empty_field)
+            }else if(!Patterns.EMAIL_ADDRESS.matcher(binding.etRegistrationEmail.text).matches()){
+                binding.inputLayoutRegistrationEmail.error = requireContext().getString(R.string.error_incorrect_email)
+            }else{
+                viewModel.handleAction(SignUpAction.SignUp(
+                    binding.etRegistrationEmail.text.toString(),
+                    binding.etRegistrationPassword.text.toString()
+                ))
+            }
+        }
+
+        binding.tvToLogin.setOnClickListener {
+            findNavController().popBackStack()
+        }
     }
 
     private fun observeViewModel() {

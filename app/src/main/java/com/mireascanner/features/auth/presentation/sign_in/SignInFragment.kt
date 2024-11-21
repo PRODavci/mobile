@@ -21,8 +21,9 @@ class SignInFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentSignInBinding.inflate(inflater, container, false)
-        Log.d("SignInFragment", "alskfdj;laaslkf")
-        findNavController().navigate(R.id.action_sign_in_to_sign_up)
+        binding.textViewRegisterPrompt.setOnClickListener {
+            findNavController().navigate(R.id.action_sign_in_to_sign_up)
+        }
         return binding.root
     }
 

@@ -6,4 +6,13 @@
     <string name="password">Пароль</string>
     <string name="no_account">Нет аккаунта? Зарегистрироваться.</string>
     <string name="error_something_went_wrong">Что-то пошло не так</string>
+    <string name="title_sign_up">Регистрация</string>
+    <string name="hint_password">Пароль</string>
+    <string name="hint_repeat_password">Повторите пароль</string>
+    <string name="text_already_have_an_account">Уже есть аккаунт?</string>
+    <string name="text_sign_in">Войти</string>
+    <string name="text_sign_up">Зарегистрироваться</string>
+    <string name="error_passwords_not_the_same">Пароли не совпадают</string>
+    <string name="error_empty_field">Это поле должно быть заполнено</string>
+    <string name="error_incorrect_email">Неправильный Email</string>
 </resources>

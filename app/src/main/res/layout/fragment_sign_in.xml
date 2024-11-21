@@ -23,6 +23,7 @@
         android:id="@+id/textInputEmail"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        app:boxBackgroundColor="@color/md_theme_surfaceContainer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewTitle">
@@ -38,6 +39,7 @@
         android:id="@+id/textInputPassword"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        app:boxBackgroundColor="@color/md_theme_surfaceContainerHigh_highContrast"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textInputEmail">
