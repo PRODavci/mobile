@@ -1,4 +1,4 @@
-package com.mireascanner
+package com.mireascanner.initial
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -10,15 +10,16 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class MainViewModel @Inject constructor() : ViewModel() {
+class MainViewModel @Inject constructor(private val stateMachine: MainStateMachine) : ViewModel() {
 
-    private val _isLoading = MutableStateFlow(true)
-    val isLoading get() = _isLoading.asStateFlow()
+    private val _state = MutableStateFlow<MainState>(MainState.Loading)
+    val state = _state.asStateFlow()
 
     init {
         viewModelScope.launch {
-            delay(500) // long operation
-            _isLoading.value = false
+            stateMachine.state.collect { newState ->
+                _state.value = newState
+            }
         }
     }
 }

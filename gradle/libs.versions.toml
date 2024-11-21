@@ -15,6 +15,8 @@ retrofit = "2.11.0"
 security = "1.0.0"
 nav_version = "2.8.4"
 splashscreen = "1.0.1"
+flowredux = "1.2.2"
+kotlinserialization = "1.7.3"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -28,17 +30,20 @@ androidx-constraintlayout = { group = "androidx.constraintlayout", name = "const
 androidx-security = { group = "androidx.security", name = "security-crypto", version.ref = "security" }
 androidx-navigation-fragment = { group = "androidx.navigation", name = "navigation-fragment", version.ref = "nav_version" }
 androidx-navigation-ui = { group = "androidx.navigation", name = "navigation-ui", version.ref = "nav_version" }
-androidx-core-splashscreen = {group = "androidx.core", name = "core-splashscreen", version.ref = "splashscreen"}
+androidx-core-splashscreen = { group = "androidx.core", name = "core-splashscreen", version.ref = "splashscreen" }
 
 hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
 hilt-compiler = { group = "com.google.dagger", name = "hilt-compiler", version.ref = "hilt" }
 hilt-navigation = { group = "androidx.hilt", name = "hilt-navigation", version.ref = "hiltnavigationfragment" }
 
 retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
+flow-redux = { group = "com.freeletics.flowredux", name = "flowredux-jvm", version.ref = "flowredux" }
+kotlin-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinserialization" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 hilt-plugin = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 

@@ -10,8 +10,9 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
+import com.mireascanner.initial.MainState
+import com.mireascanner.initial.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -38,8 +39,12 @@ class MainActivity : AppCompatActivity() {
         var keepSplashScreen = true
         lifecycleScope.launch {
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                mainViewModel.isLoading.collect {
-                    keepSplashScreen = it
+                mainViewModel.state.collect { state ->
+                    keepSplashScreen = when (state) {
+                        is MainState.Loading -> true
+
+                        is MainState.ContentState -> false
+                    }
                 }
             }
         }

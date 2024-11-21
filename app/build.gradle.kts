@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.kotlin.kapt)
     alias(libs.plugins.hilt.plugin)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 android {
@@ -37,11 +38,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "11"
     }
     buildFeatures {
         viewBinding = true
@@ -63,6 +64,10 @@ dependencies {
     implementation(libs.retrofit)
 
     implementation(libs.androidx.security)
+
+    implementation(libs.flow.redux)
+
+    implementation(libs.kotlin.serialization.json)
 
     implementation(libs.hilt.android)
     kapt(libs.hilt.compiler)
