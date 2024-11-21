@@ -6,4 +6,6 @@ import com.mireascanner.common.utils.Result
 interface AuthRepository {
 
     suspend fun signUp(email: String, password: String): Result<User>
+
+    suspend fun checkUserData(): Result<User>
 }

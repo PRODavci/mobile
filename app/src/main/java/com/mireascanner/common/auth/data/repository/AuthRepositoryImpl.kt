@@ -3,6 +3,7 @@ package com.mireascanner.common.auth.data.repository
 import com.mireascanner.common.auth.data.local.repository.LocalAuthRepository
 import com.mireascanner.common.auth.data.remote.models.SignBody
 import com.mireascanner.common.auth.data.remote.repository.RemoteAuthRepository
+import com.mireascanner.common.exceptions.UnauthorizedException
 import com.mireascanner.common.auth.data.utils.toDomain
 import com.mireascanner.common.auth.domain.AuthRepository
 import com.mireascanner.common.auth.domain.models.User
@@ -27,6 +28,30 @@ class AuthRepositoryImpl @Inject constructor(
 
             is Result.Error -> {
                 Result.Error(remoteResult.exception)
+            }
+        }
+    }
+
+    override suspend fun checkUserData(): Result<User> {
+        return when (val localResult = localAuthRepository.getAccessToken()) {
+            is Result.Success -> {
+                when (val remoteResult = remoteAuthRepository.getUserData(localResult.data)) {
+                    is Result.Success -> {
+                        Result.Success(remoteResult.data.toDomain())
+                    }
+
+                    is Result.Error -> {
+                        if (remoteResult.exception is UnauthorizedException) {
+                            TODO()
+                        } else {
+                            Result.Error(remoteResult.exception)
+                        }
+                    }
+                }
+            }
+
+            is Result.Error -> {
+                Result.Error(localResult.exception)
             }
         }
     }

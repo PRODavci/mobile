@@ -1,9 +1,10 @@
 package com.mireascanner.common.auth.data.remote.repository
 
-import android.util.Log
 import com.mireascanner.common.auth.data.remote.models.SignBody
 import com.mireascanner.common.auth.data.remote.models.SignUpResponse
+import com.mireascanner.common.auth.data.remote.models.UserResponse
 import com.mireascanner.common.auth.data.remote.network.AuthNetworkService
+import com.mireascanner.common.exceptions.UnauthorizedException
 import com.mireascanner.common.utils.Result
 import javax.inject.Inject
 
@@ -19,7 +20,21 @@ class RemoteAuthRepositoryImpl @Inject constructor(private val authNetworkServic
                 Result.Error(Exception())
             }
         } catch (e: Exception) {
-            throw e
+            Result.Error(e)
+        }
+    }
+
+    override suspend fun getUserData(accessToken: String): Result<UserResponse> {
+        return try {
+            val result = authNetworkService.getUserData(accessToken)
+            if (result.code() == 200) {
+                Result.Success(result.body()!!)
+            } else if (result.code() == 401) {
+                Result.Error(UnauthorizedException())
+            } else {
+                Result.Error(Exception())
+            }
+        } catch (e: Exception) {
             Result.Error(e)
         }
     }
