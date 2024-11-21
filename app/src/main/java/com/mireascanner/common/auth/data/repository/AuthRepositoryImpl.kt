@@ -2,6 +2,7 @@ package com.mireascanner.common.auth.data.repository
 
 import com.mireascanner.common.auth.data.local.repository.LocalAuthRepository
 import com.mireascanner.common.auth.data.remote.models.SignBody
+import com.mireascanner.common.auth.data.remote.models.TokenResponse
 import com.mireascanner.common.auth.data.remote.repository.RemoteAuthRepository
 import com.mireascanner.common.exceptions.UnauthorizedException
 import com.mireascanner.common.auth.data.utils.toDomain
@@ -9,6 +10,7 @@ import com.mireascanner.common.auth.domain.AuthRepository
 import com.mireascanner.common.auth.domain.models.User
 import com.mireascanner.common.utils.Result
 import javax.inject.Inject
+import kotlin.reflect.KSuspendFunction0
 
 class AuthRepositoryImpl @Inject constructor(
     private val localAuthRepository: LocalAuthRepository,
@@ -32,7 +34,7 @@ class AuthRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun checkUserData(): Result<User> {
+    override suspend fun checkUserDataSafely(): Result<User> {
         return when (val localResult = localAuthRepository.getAccessToken()) {
             is Result.Success -> {
                 when (val remoteResult = remoteAuthRepository.getUserData(localResult.data)) {
@@ -42,10 +44,43 @@ class AuthRepositoryImpl @Inject constructor(
 
                     is Result.Error -> {
                         if (remoteResult.exception is UnauthorizedException) {
-                            TODO()
+                            updateTokensAndMakeCall(::checkUserDataSafely)
                         } else {
                             Result.Error(remoteResult.exception)
                         }
+                    }
+                }
+            }
+
+            is Result.Error -> {
+                Result.Error(localResult.exception)
+            }
+        }
+    }
+
+    private suspend fun <T> updateTokensAndMakeCall(call: KSuspendFunction0<Result<T>>): Result<T> {
+        return when (val tokens = updateTokens()) {
+            is Result.Success -> {
+                call()
+            }
+
+            is Result.Error -> {
+                Result.Error(tokens.exception)
+            }
+        }
+    }
+
+    private suspend fun updateTokens(): Result<TokenResponse> {
+        return when (val localResult = localAuthRepository.getRefreshToken()) {
+            is Result.Success -> {
+                when (val remoteResult =
+                    remoteAuthRepository.updateRefreshToken(localResult.data)) {
+                    is Result.Success -> {
+                        Result.Success(remoteResult.data)
+                    }
+
+                    is Result.Error -> {
+                        Result.Error(remoteResult.exception)
                     }
                 }
             }

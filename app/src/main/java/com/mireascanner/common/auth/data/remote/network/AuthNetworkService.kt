@@ -1,7 +1,9 @@
 package com.mireascanner.common.auth.data.remote.network
 
+import com.mireascanner.common.auth.data.remote.models.RefreshTokenBody
 import com.mireascanner.common.auth.data.remote.models.SignBody
 import com.mireascanner.common.auth.data.remote.models.SignUpResponse
+import com.mireascanner.common.auth.data.remote.models.TokenResponse
 import com.mireascanner.common.auth.data.remote.models.UserResponse
 import retrofit2.Response
 import retrofit2.http.Body
@@ -16,6 +18,9 @@ interface AuthNetworkService {
 
     @GET("users/me")
     suspend fun getUserData(@Header(AUTHORIZATION) accessToken: String): Response<UserResponse>
+
+    @POST("auth/refresh")
+    suspend fun updateTokens(@Body refreshTokenBody: RefreshTokenBody): Response<TokenResponse>
 
     companion object {
         private const val AUTHORIZATION = "Authorization"
