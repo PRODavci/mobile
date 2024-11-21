@@ -1,6 +1,7 @@
 package com.mireascanner
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -59,8 +60,31 @@ class MainActivity : AppCompatActivity() {
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         val navController = navHostFragment.navController
 
-        val navGraph = navController.navInflater.inflate(R.navigation.global_navigation_graph)
-        navGraph.setStartDestination(R.id.auth_navigation_flow)
-        navController.graph = navGraph
+        lifecycleScope.launch {
+            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                mainViewModel.state.collect { state ->
+                    val navGraph = navController.navInflater.inflate(R.navigation.global_navigation_graph)
+                    Log.d("SignUpResult", state.toString())
+                    navGraph.setStartDestination(
+                        when (state) {
+                            is MainState.Loading -> {
+                                R.id.auth_navigation_flow
+                            }
+
+                            is MainState.ContentState -> {
+                                if (state.isAuthorized) {
+                                    R.id.main_navigation_flow
+                                } else {
+                                    R.id.auth_navigation_flow
+                                }
+                            }
+                        }
+                    )
+
+                    navController.graph = navGraph
+                }
+            }
+        }
+
     }
 }

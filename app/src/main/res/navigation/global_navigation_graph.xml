@@ -7,4 +7,13 @@
 
 
     <include app:graph="@navigation/auth_navigation_flow" />
+    <include app:graph="@navigation/main_navigation_flow" />
+    <action
+        android:id="@+id/action_global_main_navigation_flow"
+        app:destination="@id/main_navigation_flow"
+        app:popUpTo="@id/global_navigation_graph" />
+    <action
+        android:id="@+id/action_global_auth_navigation_flow"
+        app:destination="@id/auth_navigation_flow"
+        app:popUpTo="@id/global_navigation_graph" />
 </navigation>

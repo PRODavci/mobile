@@ -27,7 +27,7 @@ class MainStateMachine @Inject constructor(private val authRepository: AuthRepos
                             Log.d("SignUpResult", result.exception.toString())
                         }
                     }
-                    state.override { MainState.ContentState(true) }
+                    state.override { MainState.ContentState(false) }
                 }
             }
 
