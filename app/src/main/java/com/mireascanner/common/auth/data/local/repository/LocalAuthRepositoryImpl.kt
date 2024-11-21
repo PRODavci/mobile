@@ -1,6 +1,7 @@
 package com.mireascanner.common.auth.data.local.repository
 
 import android.content.SharedPreferences
+import com.mireascanner.common.exceptions.UnauthorizedException
 import com.mireascanner.common.utils.Result
 import com.mireascanner.di.auth.EncryptedSharedPreferencesQualifier
 import javax.inject.Inject
@@ -22,7 +23,7 @@ class LocalAuthRepositoryImpl @Inject constructor(@EncryptedSharedPreferencesQua
             if (!result.isNullOrBlank()) {
                 Result.Success(result)
             } else {
-                Result.Error(Exception())
+                Result.Error(UnauthorizedException())
             }
         } catch (e: Exception) {
             Result.Error(e)
@@ -35,7 +36,7 @@ class LocalAuthRepositoryImpl @Inject constructor(@EncryptedSharedPreferencesQua
             if (!result.isNullOrBlank()) {
                 Result.Success(result)
             } else {
-                Result.Error(Exception())
+                Result.Error(UnauthorizedException())
             }
         } catch (e: Exception) {
             Result.Error(e)

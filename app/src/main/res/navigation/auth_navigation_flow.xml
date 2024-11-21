@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/auth_navigation_flow"
     app:startDestination="@id/signInFragment">
 
@@ -8,5 +9,14 @@
     <fragment
         android:id="@+id/signInFragment"
         android:name="com.mireascanner.features.auth.presentation.sign_in.SignInFragment"
-        android:label="SignInFragment" />
+        android:label="SignInFragment">
+        <action
+            android:id="@+id/action_sign_in_to_sign_up"
+            app:destination="@id/signUpFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/signUpFragment"
+        android:name="com.mireascanner.features.auth.presentation.sign_up.SignUpFragment"
+        android:label="fragment_sign_up"
+        tools:layout="@layout/fragment_sign_up" />
 </navigation>

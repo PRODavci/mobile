@@ -5,4 +5,5 @@
     <string name="email">Email</string>
     <string name="password">Пароль</string>
     <string name="no_account">Нет аккаунта? Зарегистрироваться.</string>
+    <string name="error_something_went_wrong">Что-то пошло не так</string>
 </resources>

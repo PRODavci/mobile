@@ -26,7 +26,7 @@ class MainStateMachine @Inject constructor(private val authRepository: AuthRepos
                             if (result.exception is UnauthorizedException) {
                                 state.override { MainState.ContentState(false) }
                             } else {
-                                state.override { MainState.ContentState(true) }
+                                state.override { MainState.ContentState( false) }
                             }
                         }
                     }

@@ -141,4 +141,6 @@
     <color name="md_theme_surfaceContainer_highContrast">#FAEAED</color>
     <color name="md_theme_surfaceContainerHigh_highContrast">#F5E4E7</color>
     <color name="md_theme_surfaceContainerHighest_highContrast">#EFDFE1</color>
+
+    <color name="half_transparent">#77000000</color>
 </resources>

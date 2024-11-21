@@ -1,26 +1,29 @@
-package com.mireascanner.initial
+package com.mireascanner.features.auth.presentation.sign_up
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.mireascanner.features.auth.presentation.sign_up.SignUpAction
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class MainViewModel @Inject constructor(private val stateMachine: MainStateMachine) : ViewModel() {
-    private val _state = MutableStateFlow<MainState>(MainState.Loading)
+class SignUpViewModel @Inject constructor(private val stateMachine: SignUpStateMachine)  : ViewModel() {
+    private val _state = MutableStateFlow<SignUpState>(SignUpState.Content)
     val state = _state.asStateFlow()
 
     init {
         viewModelScope.launch {
-            stateMachine.state.collect { newState ->
+            stateMachine.state.collect{ newState ->
                 _state.value = newState
             }
+        }
+    }
+
+    fun handleAction(action: SignUpAction){
+        viewModelScope.launch {
+            stateMachine.dispatch(action)
         }
     }
 }

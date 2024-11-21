@@ -86,6 +86,10 @@ dependencies {
     implementation(libs.jakewharton.serialization)
 
     implementation(libs.hilt.android)
+    implementation(libs.androidx.legacy.support.v4)
+    implementation(libs.androidx.lifecycle.livedata.ktx)
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    implementation(libs.androidx.fragment.ktx)
     kapt(libs.hilt.compiler)
     implementation(libs.hilt.navigation)
 

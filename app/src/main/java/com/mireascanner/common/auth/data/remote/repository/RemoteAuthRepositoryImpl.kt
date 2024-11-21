@@ -18,7 +18,7 @@ class RemoteAuthRepositoryImpl @Inject constructor(private val authNetworkServic
             val result = authNetworkService.signUp(signBody)
             if (result.code() == 200) {
                 Result.Success(result.body()!!)
-            } else {
+            }else{
                 Result.Error(Exception())
             }
         } catch (e: Exception) {

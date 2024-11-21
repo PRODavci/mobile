@@ -2,6 +2,7 @@ package com.mireascanner
 
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -12,6 +13,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.NavHostFragment
+import com.mireascanner.databinding.ActivityMainBinding
 import com.mireascanner.initial.MainState
 import com.mireascanner.initial.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -22,11 +24,15 @@ class MainActivity : AppCompatActivity() {
 
     private val mainViewModel by viewModels<MainViewModel>()
 
+    private var _binding: ActivityMainBinding? = null
+    private val binding get() = _binding!!
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        _binding = ActivityMainBinding.inflate(layoutInflater)
         setupSplashScreen()
         enableEdgeToEdge()
-        setContentView(R.layout.activity_main)
+        setContentView(binding.root)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
@@ -85,6 +91,13 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+    }
 
+    fun showLoader(){
+        binding.clLoading.visibility = View.VISIBLE
+    }
+
+    fun cancelLoader(){
+        binding.clLoading.visibility = View.GONE
     }
 }
