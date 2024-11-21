@@ -8,6 +8,6 @@ import retrofit2.http.POST
 
 interface AuthNetworkService {
 
-    @POST("/")
+    @POST("users")
     suspend fun signUp(@Body signBody: SignBody): Response<SignUpResponse>
 }

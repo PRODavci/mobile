@@ -16,7 +16,9 @@ security = "1.0.0"
 nav_version = "2.8.4"
 splashscreen = "1.0.1"
 flowredux = "1.2.2"
-kotlinserialization = "1.7.3"
+kotlinserialization = "1.6.0"
+jakewhartonserialization = "1.0.0"
+okhttp3 = "4.9.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -37,8 +39,12 @@ hilt-compiler = { group = "com.google.dagger", name = "hilt-compiler", version.r
 hilt-navigation = { group = "androidx.hilt", name = "hilt-navigation", version.ref = "hiltnavigationfragment" }
 
 retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
+okhttp3 = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okhttp3" }
+okhttp3-logginginterceptor = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "okhttp3" }
 flow-redux = { group = "com.freeletics.flowredux", name = "flowredux-jvm", version.ref = "flowredux" }
 kotlin-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinserialization" }
+
+jakewharton-serialization = { group = "com.jakewharton.retrofit", name = "retrofit2-kotlinx-serialization-converter", version.ref = "jakewhartonserialization" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

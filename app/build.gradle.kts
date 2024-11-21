@@ -27,6 +27,12 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+
+            buildConfigField(
+                "String",
+                "API_URL",
+                "\"https://api.prodavci.tw1.ru/v1/\""
+            )
         }
 
         debug {
@@ -34,6 +40,12 @@ android {
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
+            )
+
+            buildConfigField(
+                "String",
+                "API_URL",
+                "\"https://api.prodavci.tw1.ru/v1/\""
             )
         }
     }
@@ -46,6 +58,7 @@ android {
     }
     buildFeatures {
         viewBinding = true
+        buildConfig = true
     }
 }
 
@@ -62,12 +75,15 @@ dependencies {
     implementation(libs.androidx.navigation.fragment)
 
     implementation(libs.retrofit)
+    implementation(libs.okhttp3)
+    implementation(libs.okhttp3.logginginterceptor)
 
     implementation(libs.androidx.security)
 
     implementation(libs.flow.redux)
 
     implementation(libs.kotlin.serialization.json)
+    implementation(libs.jakewharton.serialization)
 
     implementation(libs.hilt.android)
     kapt(libs.hilt.compiler)
