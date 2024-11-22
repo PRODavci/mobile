@@ -1,8 +1,6 @@
 package com.mireascanner
 
 import android.os.Bundle
-import android.util.Log
-import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -12,7 +10,6 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import com.mireascanner.databinding.ActivityMainBinding
 import com.mireascanner.splash.MainState
@@ -89,7 +86,6 @@ class MainActivity : AppCompatActivity() {
                     )
 
                     navController.graph = navGraph
-                    Log.d("Navigation", navController.graph.startDestinationRoute.toString())
                 }
             }
         }

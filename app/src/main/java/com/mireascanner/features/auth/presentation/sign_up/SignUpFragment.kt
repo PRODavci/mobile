@@ -19,6 +19,7 @@ import com.mireascanner.MainActivity
 import com.mireascanner.R
 import com.mireascanner.common.auth.data.utils.Helper
 import com.mireascanner.common.auth.domain.usecase.validate_password.ValidationPasswordResult
+import com.mireascanner.common.navigation.activityNavController
 import com.mireascanner.common.navigation.navigateSafely
 import com.mireascanner.common.ui.LoadingDialog
 import com.mireascanner.common.ui.showErrorSnackbar
@@ -90,7 +91,6 @@ class SignUpFragment : Fragment() {
         lifecycleScope.launch {
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.state.collect { state ->
-                    Log.d("SignUp", state.error?.asString(requireContext()) ?: "")
                     clearErrors()
                     if (state.error != null) {
                         showErrorSnackbar(
@@ -117,14 +117,13 @@ class SignUpFragment : Fragment() {
         lifecycleScope.launch {
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.effect.collect { newEffect ->
-                    Log.d("SingUpFragment", newEffect.toString())
                     when (newEffect) {
                         is SignUpEffect.ShowLoading -> {
                             loadingDialog.show()
                         }
 
                         is SignUpEffect.NavigateToMain -> {
-                            findNavController().navigateSafely(R.id.action_global_mainFlowFragment)
+                            activityNavController().navigateSafely(R.id.action_global_mainFlowFragment)
                         }
 
                         is SignUpEffect.HideLoadingDialog -> {

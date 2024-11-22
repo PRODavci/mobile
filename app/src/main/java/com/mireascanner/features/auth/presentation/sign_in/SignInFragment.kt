@@ -13,6 +13,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.mireascanner.R
+import com.mireascanner.common.navigation.activityNavController
 import com.mireascanner.common.navigation.navigateSafely
 import com.mireascanner.common.ui.LoadingDialog
 import com.mireascanner.common.ui.showErrorSnackbar
@@ -46,7 +47,6 @@ class SignInFragment : Fragment() {
         lifecycleScope.launch {
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.state.collect { state ->
-                    Log.d("SignIn", state.toString())
                     clearErrors()
                     if (state.error != null) {
                         showErrorSnackbar(
@@ -69,14 +69,13 @@ class SignInFragment : Fragment() {
         lifecycleScope.launch {
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.effect.collect { newEffect ->
-                    Log.d("SingUpFragment", newEffect.toString())
                     when (newEffect) {
                         is SignInEffect.ShowLoading -> {
                             loadingDialog.show()
                         }
 
                         is SignInEffect.NavigateToMain -> {
-                            findNavController().navigateSafely(R.id.action_global_mainFlowFragment)
+                            activityNavController().navigateSafely(R.id.action_global_mainFlowFragment)
                         }
 
                         is SignInEffect.HideLoadingDialog -> {
