@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "807519810660",
+    "project_id": "mirea-scanner",
+    "storage_bucket": "mirea-scanner.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:807519810660:android:557a0e3c1a0425d026db71",
+        "android_client_info": {
+          "package_name": "com.mireascanner"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCU2E5mTata42Qnbw5bPp3kB_YKUpQNgDM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

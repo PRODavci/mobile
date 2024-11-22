@@ -6,14 +6,20 @@
     tools:ignore="InvalidNavigation">
 
 
-    <include app:graph="@navigation/auth_navigation_flow" />
-    <include app:graph="@navigation/main_navigation_flow" />
+    <fragment
+        android:id="@+id/authFlowFragment"
+        android:name="com.mireascanner.features.auth.presentation.AuthFlowFragment"
+        android:label="AuthFlowFragment" />
+    <fragment
+        android:id="@+id/mainFlowFragment"
+        android:name="com.mireascanner.features.main.MainFlowFragment"
+        android:label="MainFlowFragment" />
     <action
-        android:id="@+id/action_global_main_navigation_flow"
-        app:destination="@id/main_navigation_flow"
+        android:id="@+id/action_global_authFlowFragment"
+        app:destination="@id/authFlowFragment"
         app:popUpTo="@id/global_navigation_graph" />
     <action
-        android:id="@+id/action_global_auth_navigation_flow"
-        app:destination="@id/auth_navigation_flow"
+        android:id="@+id/action_global_mainFlowFragment"
+        app:destination="@id/mainFlowFragment"
         app:popUpTo="@id/global_navigation_graph" />
 </navigation>

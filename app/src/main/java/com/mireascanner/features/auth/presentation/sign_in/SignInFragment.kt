@@ -12,19 +12,12 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.snackbar.Snackbar
 import com.mireascanner.R
-import com.mireascanner.common.auth.data.utils.Helper
-import com.mireascanner.common.auth.domain.usecase.validate_password.ValidationPasswordResult
 import com.mireascanner.common.navigation.navigateSafely
 import com.mireascanner.common.ui.LoadingDialog
 import com.mireascanner.common.ui.showErrorSnackbar
 import com.mireascanner.databinding.FragmentSignInBinding
-import com.mireascanner.features.auth.presentation.sign_up.SignUpAction
-import com.mireascanner.features.auth.presentation.sign_up.SignUpEffect
-import com.mireascanner.features.auth.presentation.sign_up.SignUpState
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -83,7 +76,7 @@ class SignInFragment : Fragment() {
                         }
 
                         is SignInEffect.NavigateToMain -> {
-                            findNavController().navigateSafely(R.id.action_global_main_navigation_flow)
+                            findNavController().navigateSafely(R.id.action_global_mainFlowFragment)
                         }
 
                         is SignInEffect.HideLoadingDialog -> {

@@ -12,6 +12,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import com.mireascanner.databinding.ActivityMainBinding
 import com.mireascanner.splash.MainState
@@ -69,34 +70,29 @@ class MainActivity : AppCompatActivity() {
         lifecycleScope.launch {
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 mainViewModel.state.collect { state ->
-                    val navGraph = navController.navInflater.inflate(R.navigation.global_navigation_graph)
+                    val navGraph =
+                        navController.navInflater.inflate(R.navigation.global_navigation_graph)
                     navGraph.setStartDestination(
                         when (state) {
                             is MainState.Loading -> {
-                                R.id.auth_navigation_flow
+                                R.id.authFlowFragment
                             }
 
                             is MainState.ContentState -> {
                                 if (state.isAuthorized) {
-                                    R.id.main_navigation_flow
+                                    R.id.mainFlowFragment
                                 } else {
-                                    R.id.auth_navigation_flow
+                                    R.id.authFlowFragment
                                 }
                             }
                         }
                     )
 
                     navController.graph = navGraph
+                    Log.d("Navigation", navController.graph.startDestinationRoute.toString())
                 }
             }
         }
     }
 
-    fun showLoader(){
-        binding.clLoading.visibility = View.VISIBLE
-    }
-
-    fun cancelLoader(){
-        binding.clLoading.visibility = View.GONE
-    }
 }

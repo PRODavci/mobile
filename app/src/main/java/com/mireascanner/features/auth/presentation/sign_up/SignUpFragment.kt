@@ -120,7 +120,7 @@ class SignUpFragment : Fragment() {
                         }
 
                         is SignUpEffect.NavigateToMain -> {
-                            findNavController().navigateSafely(R.id.action_global_main_navigation_flow)
+                            findNavController().navigateSafely(R.id.action_global_mainFlowFragment)
                         }
 
                         is SignUpEffect.HideLoadingDialog -> {
