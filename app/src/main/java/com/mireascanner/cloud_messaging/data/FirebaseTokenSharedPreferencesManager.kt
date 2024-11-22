@@ -11,9 +11,9 @@ class FirebaseTokenSharedPreferencesManager {
             .apply()
     }
 
-    fun getToken(context: Context): String? =
+    fun getToken(context: Context): String =
         context.getSharedPreferences(FIREBASE_TOKEN_SHARED_PREFERENCES, Context.MODE_PRIVATE)
-            .getString(TOKEN, null)
+            .getString(TOKEN, null)!!
 
 
     companion object {
