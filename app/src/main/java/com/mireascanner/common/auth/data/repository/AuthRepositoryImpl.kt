@@ -1,5 +1,6 @@
 package com.mireascanner.common.auth.data.repository
 
+import com.mireascanner.cloud_messaging.data.FirebaseTokenSharedPreferencesManager
 import com.mireascanner.common.auth.data.local.repository.LocalAuthRepository
 import com.mireascanner.common.auth.data.remote.models.SignBody
 import com.mireascanner.common.auth.data.remote.models.TokenResponse
@@ -15,7 +16,8 @@ import kotlin.reflect.KSuspendFunction0
 
 class AuthRepositoryImpl @Inject constructor(
     private val localAuthRepository: LocalAuthRepository,
-    private val remoteAuthRepository: RemoteAuthRepository
+    private val remoteAuthRepository: RemoteAuthRepository,
+    private val firebaseTokenSharedPreferencesManager: FirebaseTokenSharedPreferencesManager
 ) : AuthRepository {
 
     override suspend fun signUp(email: String, password: String): Result<User> {
