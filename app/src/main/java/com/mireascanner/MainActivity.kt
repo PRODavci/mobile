@@ -14,8 +14,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.NavHostFragment
 import com.mireascanner.databinding.ActivityMainBinding
-import com.mireascanner.initial.MainState
-import com.mireascanner.initial.MainViewModel
+import com.mireascanner.splash.MainState
+import com.mireascanner.splash.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -70,7 +70,6 @@ class MainActivity : AppCompatActivity() {
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 mainViewModel.state.collect { state ->
                     val navGraph = navController.navInflater.inflate(R.navigation.global_navigation_graph)
-                    Log.d("SignUpResult", state.toString())
                     navGraph.setStartDestination(
                         when (state) {
                             is MainState.Loading -> {

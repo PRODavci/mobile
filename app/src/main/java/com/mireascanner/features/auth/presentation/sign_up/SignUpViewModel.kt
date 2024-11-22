@@ -9,19 +9,20 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class SignUpViewModel @Inject constructor(private val stateMachine: SignUpStateMachine)  : ViewModel() {
+class SignUpViewModel @Inject constructor(private val stateMachine: SignUpStateMachine) :
+    ViewModel() {
     private val _state = MutableStateFlow<SignUpState>(SignUpState.Content)
     val state = _state.asStateFlow()
 
     init {
         viewModelScope.launch {
-            stateMachine.state.collect{ newState ->
+            stateMachine.state.collect { newState ->
                 _state.value = newState
             }
         }
     }
 
-    fun handleAction(action: SignUpAction){
+    fun handleAction(action: SignUpAction) {
         viewModelScope.launch {
             stateMachine.dispatch(action)
         }

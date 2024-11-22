@@ -1,15 +1,15 @@
-package com.mireascanner.initial
+package com.mireascanner.splash
 
-import com.freeletics.flowredux.dsl.FlowReduxStateMachine
 import com.mireascanner.common.auth.domain.AuthRepository
 import com.mireascanner.common.exceptions.UnauthorizedException
+import com.mireascanner.common.utils.BaseStateMachine
 import com.mireascanner.common.utils.Result
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import javax.inject.Inject
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class MainStateMachine @Inject constructor(private val authRepository: AuthRepository) :
-    FlowReduxStateMachine<MainState, MainAction>(initialState = MainState.Loading) {
+    BaseStateMachine<MainState, MainAction, Unit>(initialState = MainState.Loading) {
 
     init {
         spec {

@@ -1,4 +1,4 @@
-package com.mireascanner.initial
+package com.mireascanner.splash
 
 sealed interface MainState {
 

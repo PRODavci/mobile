@@ -11,6 +11,7 @@ import javax.inject.Inject
 @OptIn(ExperimentalCoroutinesApi::class)
 class SignUpStateMachine @Inject constructor(authRepository: RemoteAuthRepository) :
     FlowReduxStateMachine<SignUpState, SignUpAction>(initialState = SignUpState.Content) {
+
     init {
         spec {
             inState<SignUpState.Content> {
