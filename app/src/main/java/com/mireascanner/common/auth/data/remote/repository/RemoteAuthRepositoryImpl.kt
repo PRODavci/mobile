@@ -6,6 +6,7 @@ import com.mireascanner.common.auth.data.remote.models.AuthResponse
 import com.mireascanner.common.auth.data.remote.models.TokenResponse
 import com.mireascanner.common.auth.data.remote.models.UserResponse
 import com.mireascanner.common.auth.data.remote.network.AuthNetworkService
+import com.mireascanner.common.exceptions.EmailAlreadyUsedException
 import com.mireascanner.common.exceptions.InvalidCredentialsException
 import com.mireascanner.common.exceptions.UnauthorizedException
 import com.mireascanner.common.utils.Result
@@ -17,9 +18,11 @@ class RemoteAuthRepositoryImpl @Inject constructor(private val authNetworkServic
     override suspend fun signUp(signBody: SignBody): Result<AuthResponse> {
         return try {
             val result = authNetworkService.signUp(signBody)
-            if (result.code() == 200) {
+            if (result.code() == 201) {
                 Result.Success(result.body()!!)
-            }else{
+            } else if (result.code() == 409) {
+                Result.Error(EmailAlreadyUsedException())
+            } else {
                 Result.Error(Exception())
             }
         } catch (e: Exception) {
@@ -27,17 +30,17 @@ class RemoteAuthRepositoryImpl @Inject constructor(private val authNetworkServic
         }
     }
 
-    override suspend fun signIn(signBody: SignBody): Result<AuthResponse>{
+    override suspend fun signIn(signBody: SignBody): Result<AuthResponse> {
         return try {
             val result = authNetworkService.signIn(signBody)
-            if(result.code() == 200){
+            if (result.code() == 200) {
                 Result.Success(result.body()!!)
-            }else if(result.code() == 401){
+            } else if (result.code() == 401) {
                 Result.Error(InvalidCredentialsException())
-            }else{
+            } else {
                 Result.Error(Exception())
             }
-        }catch (e: Exception){
+        } catch (e: Exception) {
             Result.Error(e)
         }
     }

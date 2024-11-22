@@ -7,6 +7,7 @@ import com.mireascanner.common.auth.domain.usecase.validate_email.ValidateEmailU
 import com.mireascanner.common.auth.domain.usecase.validate_email.ValidationEmailResult
 import com.mireascanner.common.auth.domain.usecase.validate_password.ValidatePasswordUseCase
 import com.mireascanner.common.auth.domain.usecase.validate_password.ValidationPasswordResult
+import com.mireascanner.common.exceptions.EmailAlreadyUsedException
 import com.mireascanner.common.utils.BaseStateMachine
 import com.mireascanner.common.utils.Result
 import com.mireascanner.common.utils.UIText
@@ -47,8 +48,8 @@ class SignUpStateMachine @Inject constructor(
                             }
                         }
                         isPasswordCorrect = false
-                        return@on state.override {
-                            SignUpState(
+                        return@on state.mutate {
+                            state.snapshot.copy(
                                 passwordError = UIText.StringResource(
                                     errorResId
                                 ),
@@ -57,14 +58,19 @@ class SignUpStateMachine @Inject constructor(
                         }
                     }
                     isPasswordCorrect = true
-                    return@on state.override { SignUpState(isSignUpButtonAvailable = isCredentialsCorrect()) }
+                    return@on state.mutate {
+                        state.snapshot.copy(
+                            passwordError = null,
+                            isSignUpButtonAvailable = isCredentialsCorrect()
+                        )
+                    }
                 }
 
                 on<SignUpAction.EmailChanged> { action, state ->
                     if (validateEmailUseCase(action.email) is ValidationEmailResult.Failed) {
                         isEmailCorrect = false
-                        return@on state.override {
-                            SignUpState(
+                        return@on state.mutate {
+                            state.snapshot.copy(
                                 emailError = UIText.StringResource(
                                     R.string.error_incorrect_email
                                 ),
@@ -73,12 +79,17 @@ class SignUpStateMachine @Inject constructor(
                         }
                     }
                     isEmailCorrect = true
-                    state.mutate { state.snapshot.copy(isSignUpButtonAvailable = isCredentialsCorrect()) }
+                    return@on state.mutate {
+                        state.snapshot.copy(
+                            emailError = null,
+                            isSignUpButtonAvailable = isCredentialsCorrect()
+                        )
+                    }
                 }
                 on<SignUpAction.SignUp> { action: SignUpAction.SignUp, state ->
                     Log.d("SignUpStateMachine", validatePasswordUseCase(action.password).toString())
                     updateEffect(SignUpEffect.ShowLoading)
-                    if(!isCredentialsCorrect()){
+                    if (!isCredentialsCorrect()) {
                         return@on state.noChange()
                     }
                     val result = authRepository.signUp(
@@ -89,12 +100,20 @@ class SignUpStateMachine @Inject constructor(
                     when (result) {
                         is Result.Success -> {
                             updateEffect(SignUpEffect.NavigateToMain)
-                            state.noChange()
+                            return@on state.noChange()
                         }
 
                         is Result.Error -> {
                             Log.e("SignUpStateMachine", result.exception.message, result.exception)
-                            state.override {
+                            if(result.exception is EmailAlreadyUsedException){
+                                return@on state.override {
+                                    SignUpState(
+                                        error = UIText.StringResource(R.string.error_email_already_used),
+                                        isSignUpButtonAvailable = true
+                                    )
+                                }
+                            }
+                            return@on state.override {
                                 SignUpState(
                                     error = UIText.StringResource(R.string.error_something_went_wrong),
                                     isSignUpButtonAvailable = true

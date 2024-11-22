@@ -21,4 +21,5 @@
     <string name="error_password_too_short">Password too short</string>
     <string name="error_not_contanis_letters_or_digits">Password must contains letters and digits</string>
     <string name="error_not_contains_upper_or_lower_letters">Password must contains upper and lower letters</string>
+    <string name="error_email_already_used">User with this email already exists</string>
 </resources>
