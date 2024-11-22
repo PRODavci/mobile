@@ -1,7 +1,7 @@
 package com.mireascanner.common.utils
 
 
-import androidx.annotation.PluralsRes
+import android.content.Context
 import androidx.annotation.StringRes
 
 sealed class UIText {
@@ -10,6 +10,10 @@ sealed class UIText {
 
     class StringResource(@StringRes val resId: Int, vararg val args: Any) : UIText()
 
-    class PluralsResource(@PluralsRes val resId: Int, val quantity: Int, vararg val args: Any) :
-        UIText()
+    fun asString(context: Context): String {
+        return when (this) {
+            is DynamicText -> value
+            is StringResource -> context.getString(resId, *args)
+        }
+    }
 }
