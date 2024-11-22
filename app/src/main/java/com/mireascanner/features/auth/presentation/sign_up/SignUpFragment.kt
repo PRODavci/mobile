@@ -80,19 +80,23 @@ class SignUpFragment : Fragment() {
         binding.etRegistrationPassword.doOnTextChanged { text, _, _, _ ->
             viewModel.handleAction(SignUpAction.PasswordChanged(text.toString()))
         }
+
+        binding.toolbar.setNavigationOnClickListener {
+            findNavController().popBackStack()
+        }
     }
 
     private fun observeViewModel() {
         lifecycleScope.launch {
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.state.collect { state ->
-                    Log.d("SignUp", state.toString())
+                    Log.d("SignUp", state.error?.asString(requireContext()) ?: "")
                     clearErrors()
                     if (state.error != null) {
                         showErrorSnackbar(
                             requireContext(),
                             binding.root,
-                            R.string.error_something_went_wrong
+                            state.error.asString(requireContext())
                         )
                     }
                     if (state.emailError != null) {

@@ -20,4 +20,5 @@
     <string name="error_password_too_short">Пароль слишком короткий</string>
     <string name="error_not_contanis_letters_or_digits">Пароль должен содержать буквы и цифры</string>
     <string name="error_not_contains_upper_or_lower_letters">Пароль должен содержать большие и маленькие буквы</string>
+    <string name="error_email_already_used">Пользователь с таким email уже существует</string>
 </resources>

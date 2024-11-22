@@ -64,7 +64,8 @@
             app:boxCornerRadiusTopEnd="@dimen/input_layout_corner_radius"
             app:boxCornerRadiusTopStart="@dimen/input_layout_corner_radius"
             app:boxStrokeWidth="0dp"
-            app:boxStrokeWidthFocused="0dp">
+            app:boxStrokeWidthFocused="0dp"
+            app:passwordToggleEnabled="true">
 
             <EditText
                 android:id="@+id/et_sign_in_password"
