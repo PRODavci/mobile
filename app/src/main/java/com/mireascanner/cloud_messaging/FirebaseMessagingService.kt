@@ -13,7 +13,7 @@ class FirebaseMessagingService : FirebaseMessagingService() {
 
     private val coroutineScope = CoroutineScope(SupervisorJob())
 
-    private val firebaseTokenSharedPreferencesManager = FirebaseTokenSharedPreferencesManager()
+    private var firebaseTokenSharedPreferencesManager: FirebaseTokenSharedPreferencesManager? = null
 
     override fun onMessageReceived(message: RemoteMessage) {
         super.onMessageReceived(message)
@@ -22,13 +22,16 @@ class FirebaseMessagingService : FirebaseMessagingService() {
     override fun onNewToken(token: String) {
         super.onNewToken(token)
 
+        firebaseTokenSharedPreferencesManager =
+            FirebaseTokenSharedPreferencesManager(applicationContext)
         coroutineScope.launch(Dispatchers.IO) {
-            firebaseTokenSharedPreferencesManager.updateToken(applicationContext, token)
+            firebaseTokenSharedPreferencesManager!!.updateToken(token)
         }
     }
 
     override fun onDestroy() {
         super.onDestroy()
         coroutineScope.cancel()
+        firebaseTokenSharedPreferencesManager = null
     }
 }

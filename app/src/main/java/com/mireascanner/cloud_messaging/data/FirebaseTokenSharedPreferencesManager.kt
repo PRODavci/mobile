@@ -2,16 +2,16 @@ package com.mireascanner.cloud_messaging.data
 
 import android.content.Context
 
-class FirebaseTokenSharedPreferencesManager {
+class FirebaseTokenSharedPreferencesManager(private val context: Context) {
 
-    fun updateToken(context: Context, token: String) {
+    fun updateToken(token: String) {
         context.getSharedPreferences(FIREBASE_TOKEN_SHARED_PREFERENCES, Context.MODE_PRIVATE)
             .edit()
             .putString(TOKEN, token)
             .apply()
     }
 
-    fun getToken(context: Context): String =
+    fun getToken(): String =
         context.getSharedPreferences(FIREBASE_TOKEN_SHARED_PREFERENCES, Context.MODE_PRIVATE)
             .getString(TOKEN, null)!!
 
