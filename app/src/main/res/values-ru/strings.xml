@@ -15,4 +15,9 @@
     <string name="error_passwords_not_the_same">Пароли не совпадают</string>
     <string name="error_empty_field">Это поле должно быть заполнено</string>
     <string name="error_incorrect_email">Неправильный Email</string>
+    <string name="title_sign_in">Вход</string>
+    <string name="text_dont_have_an_account_yet">Еще нет аккаунта?</string>
+    <string name="error_password_too_short">Пароль слишком короткий</string>
+    <string name="error_not_contanis_letters_or_digits">Пароль должен содержать буквы и цифры</string>
+    <string name="error_not_contains_upper_or_lower_letters">Пароль должен содержать большие и маленькие буквы</string>
 </resources>

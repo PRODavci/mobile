@@ -8,6 +8,7 @@ import com.mireascanner.common.exceptions.UnauthorizedException
 import com.mireascanner.common.auth.data.utils.toDomain
 import com.mireascanner.common.auth.domain.AuthRepository
 import com.mireascanner.common.auth.domain.models.User
+import com.mireascanner.common.exceptions.InvalidCredentialsException
 import com.mireascanner.common.utils.Result
 import javax.inject.Inject
 import kotlin.reflect.KSuspendFunction0
@@ -20,6 +21,23 @@ class AuthRepositoryImpl @Inject constructor(
     override suspend fun signUp(email: String, password: String): Result<User> {
         val remoteResult = remoteAuthRepository.signUp(SignBody(email = email, password = password))
         return when (remoteResult) {
+            is Result.Success -> {
+                localAuthRepository.saveAccessAndRefreshTokens(
+                    remoteResult.data.tokens.accessToken,
+                    remoteResult.data.tokens.refreshToken
+                )
+                Result.Success(remoteResult.data.user.toDomain())
+            }
+
+            is Result.Error -> {
+                Result.Error(remoteResult.exception)
+            }
+        }
+    }
+
+    override suspend fun signIn(email: String, password: String): Result<User>{
+        val remoteResult = remoteAuthRepository.signIn(SignBody(email = email, password = password))
+        return when(remoteResult){
             is Result.Success -> {
                 localAuthRepository.saveAccessAndRefreshTokens(
                     remoteResult.data.tokens.accessToken,

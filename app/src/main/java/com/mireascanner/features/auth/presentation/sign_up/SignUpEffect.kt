@@ -1,4 +1,11 @@
 package com.mireascanner.features.auth.presentation.sign_up
 
-class SignUpEffect {
+sealed interface SignUpEffect {
+
+    data object NavigateToMain : SignUpEffect
+
+    data object ShowLoading : SignUpEffect
+
+    data object HideLoadingDialog : SignUpEffect
+
 }

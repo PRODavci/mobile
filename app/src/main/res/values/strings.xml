@@ -16,4 +16,9 @@
     <string name="error_passwords_not_the_same">Passwords not the same</string>
     <string name="error_empty_field">This field must not be empty</string>
     <string name="error_incorrect_email">Incorrect Email</string>
+    <string name="title_sign_in">Sign In</string>
+    <string name="text_dont_have_an_account_yet">Dont have an account yet?</string>
+    <string name="error_password_too_short">Password too short</string>
+    <string name="error_not_contanis_letters_or_digits">Password must contains letters and digits</string>
+    <string name="error_not_contains_upper_or_lower_letters">Password must contains upper and lower letters</string>
 </resources>

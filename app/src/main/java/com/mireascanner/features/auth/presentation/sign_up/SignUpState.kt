@@ -1,15 +1,13 @@
 package com.mireascanner.features.auth.presentation.sign_up
 
 import com.mireascanner.common.auth.domain.models.User
+import com.mireascanner.common.auth.domain.usecase.validate_password.ValidationPasswordResult
+import com.mireascanner.common.utils.UIText
 import java.lang.Exception
 
-sealed interface SignUpState {
-
-    data class Succeed(val user: User) : SignUpState
-
-    data class Failed(val exception: Exception) : SignUpState
-
-    data object Content : SignUpState
-
-    data object Loading : SignUpState
-}
+data class SignUpState(
+    val passwordError: UIText? = null,
+    val emailError: UIText? = null,
+    val isSignUpButtonAvailable: Boolean = false,
+    val error: UIText? = null,
+)

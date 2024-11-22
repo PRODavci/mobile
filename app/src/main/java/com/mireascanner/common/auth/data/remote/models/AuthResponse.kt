@@ -6,7 +6,7 @@ import kotlinx.serialization.Serializable
 
 @Keep
 @Serializable
-data class SignUpResponse(
+data class AuthResponse(
     val user: UserResponse,
     val tokens: TokenResponse
 )
