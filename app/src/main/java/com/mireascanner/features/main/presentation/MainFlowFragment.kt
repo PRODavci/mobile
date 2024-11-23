@@ -1,4 +1,4 @@
-package com.mireascanner.features.main
+package com.mireascanner.features.main.presentation
 
 import com.mireascanner.R
 import com.mireascanner.common.navigation.BaseFlowFragment

@@ -1,5 +1,6 @@
 package com.mireascanner.features.splash
 
+import android.util.Log
 import com.mireascanner.common.auth.domain.AuthRepository
 import com.mireascanner.common.exceptions.UnauthorizedException
 import com.mireascanner.common.utils.BaseStateMachine
@@ -17,6 +18,7 @@ class SplashStateMachine @Inject constructor(private val authRepository: AuthRep
                 onEnter { state ->
                     val result =
                         authRepository.checkUserDataSafely()
+                    Log.d("SplashStateMachine", result.toString())
                     when (result) {
                         is Result.Success -> {
                             state.override { SplashState.ContentState(true) }

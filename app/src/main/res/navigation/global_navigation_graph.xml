@@ -12,7 +12,7 @@
         android:label="AuthFlowFragment" />
     <fragment
         android:id="@+id/mainFlowFragment"
-        android:name="com.mireascanner.features.main.MainFlowFragment"
+        android:name="com.mireascanner.features.main.presentation.MainFlowFragment"
         android:label="MainFlowFragment" />
     <action
         android:id="@+id/action_global_authFlowFragment"

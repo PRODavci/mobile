@@ -1,4 +1,4 @@
-package com.mireascanner.features.main.main
+package com.mireascanner.features.main.presentation.main
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

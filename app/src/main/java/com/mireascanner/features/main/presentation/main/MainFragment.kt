@@ -1,4 +1,4 @@
-package com.mireascanner.features.main.main
+package com.mireascanner.features.main.presentation.main
 
 import android.content.Context
 import android.content.pm.PackageManager
