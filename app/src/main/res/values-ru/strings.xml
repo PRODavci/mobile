@@ -30,4 +30,7 @@
     <string name="allow">Разрешить</string>
     <string name="deny">Отменить</string>
     <string name="open">Открыть</string>
+    <string name="manage_ips">Редактировать IP-адреса</string>
+    <string name="ip_error">Enter IP in correct format (usual, CIDR).</string>
+    <string name="done">Done</string>
 </resources>

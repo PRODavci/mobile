@@ -16,6 +16,8 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
+import com.mireascanner.R
 import com.mireascanner.databinding.FragmentMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -58,6 +60,10 @@ class MainFragment : Fragment() {
             binding.includeNotificaiton.btnOnNotifications.setOnClickListener {
                 notificationsPermissionHelper.checkAndRequestPermission(requireActivity())
             }
+        }
+
+        binding.addButton.setOnClickListener {
+            findNavController().navigate(R.id.action_mainScreenFragment_to_addIpsFragment)
         }
 
     }

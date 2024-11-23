@@ -35,4 +35,8 @@
     <string name="allow">Allow</string>
     <string name="deny">Deny</string>
     <string name="open">Open</string>
+    <string name="manage_ips">Manage ips</string>
+    <string name="ip" translatable="false">IP</string>
+    <string name="ip_error">Введите IP в обычном формате или CIDR, или диапазон с тире.</string>
+    <string name="done">Готово</string>
 </resources>

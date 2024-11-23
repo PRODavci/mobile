@@ -9,5 +9,13 @@
         android:id="@+id/mainScreenFragment"
         android:name="com.mireascanner.features.main.presentation.main.MainFragment"
         android:label="MainScreenFragment"
-        tools:layout="@layout/fragment_main"/>
+        tools:layout="@layout/fragment_main">
+        <action
+            android:id="@+id/action_mainScreenFragment_to_addIpsFragment"
+            app:destination="@id/addIpsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addIpsFragment"
+        android:name="com.mireascanner.features.main.presentation.add_ips.AddIpsFragment"
+        android:label="AddIpsFragment" />
 </navigation>
