@@ -1,4 +1,4 @@
-package com.mireascanner.features.scan.presentation
+package com.mireascanner.features.main.presentation.scan.presentation
 
 sealed interface ScanEffect {
     data class NavigateToScanDetails(

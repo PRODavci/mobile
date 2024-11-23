@@ -1,4 +1,4 @@
-package com.mireascanner.features.scan.presentation
+package com.mireascanner.features.main.presentation.scan.presentation
 
 import androidx.fragment.app.viewModels
 import android.os.Bundle
@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mireascanner.R
+import com.mireascanner.common.main.domain.models.Host
 import com.mireascanner.databinding.FragmentScanBinding
 
 class ScanFragment : Fragment() {
@@ -27,11 +28,16 @@ class ScanFragment : Fragment() {
     }
 
     private fun initUi() {
-        val hosts = arguments?.getStringArray("Hosts")
-        if(hosts != null) {
-            binding.rvHosts.adapter = HostsAdapter(hosts) {
+        val hostsIds = arguments?.getIntArray("HostsIds")
+        val hostsIps = arguments?.getStringArray("HostsIps")
+        if(hostsIps != null && hostsIds != null) {
+            val hosts = arrayListOf<Host>()
+            for(i in hostsIps.indices){
+                hosts.add(Host(hostsIds[i], hostsIps[i]))
+            }
+            binding.rvHosts.adapter = HostsAdapter(hosts.toTypedArray()) {
                 val b = Bundle()
-                b.putString("Host", it)
+                b.putInt("HostId", it)
                 findNavController().navigate(R.id.action_scanFragment_to_hostDetailsFragment, b)
             }
             binding.rvHosts.layoutManager = LinearLayoutManager(requireContext())

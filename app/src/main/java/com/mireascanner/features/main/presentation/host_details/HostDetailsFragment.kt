@@ -22,7 +22,7 @@ class HostDetailsFragment : Fragment() {
     }
 
     private fun initUi() {
-        val host = arguments?.getString("Host")
+        val hostId = arguments?.getInt("HostId")
         if(host != null){
 
         }else{

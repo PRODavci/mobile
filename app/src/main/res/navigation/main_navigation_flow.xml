@@ -29,7 +29,7 @@
 
     <fragment
         android:id="@+id/scanFragment"
-        android:name="com.mireascanner.features.scan.presentation.ScanFragment"
+        android:name="com.mireascanner.features.main.presentation.scan.presentation.ScanFragment"
         android:label="fragment_scan"
         tools:layout="@layout/fragment_scan" >
         <action
