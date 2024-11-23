@@ -32,7 +32,7 @@ android {
             buildConfigField(
                 "String",
                 "API_URL",
-                "\"https://api.prodavci.tw1.ru/v1/\""
+                "\"https://156c-46-138-75-161.ngrok-free.app/v1/\""
             )
         }
 
@@ -46,7 +46,7 @@ android {
             buildConfigField(
                 "String",
                 "API_URL",
-                "\"https://api.prodavci.tw1.ru/v1/\""
+                "\"https://156c-46-138-75-161.ngrok-free.app/v1/\""
             )
         }
     }

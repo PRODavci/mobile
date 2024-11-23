@@ -35,4 +35,6 @@
     <string name="allow">Allow</string>
     <string name="deny">Deny</string>
     <string name="open">Open</string>
+    <string name="title_scans">Scans</string>
+    <string name="text_scanning">Scanning</string>
 </resources>

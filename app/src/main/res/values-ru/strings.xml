@@ -30,4 +30,6 @@
     <string name="allow">Разрешить</string>
     <string name="deny">Отменить</string>
     <string name="open">Открыть</string>
+    <string name="title_scans">Сканы</string>
+    <string name="text_scanning">Сканирование</string>
 </resources>

@@ -1,8 +1,9 @@
 package com.mireascanner.features.main.presentation.main
 
-sealed interface MainState{
-    data object Content : MainState
+import com.mireascanner.common.main.domain.models.Scan
+import com.mireascanner.common.utils.UIText
 
-    data object Loading : MainState
-
-}
+data class MainState(
+    val error: UIText? = null,
+    val scans: Array<Scan>? = null
+)

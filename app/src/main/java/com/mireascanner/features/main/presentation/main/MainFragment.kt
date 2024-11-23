@@ -16,6 +16,13 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.mireascanner.R
+import com.mireascanner.common.main.domain.models.Scan
+import com.mireascanner.common.navigation.activityNavController
+import com.mireascanner.common.ui.LoadingDialog
+import com.mireascanner.common.ui.showErrorSnackbar
 import com.mireascanner.databinding.FragmentMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -28,20 +35,24 @@ class MainFragment : Fragment() {
     private val viewModel by viewModels<MainViewModel>()
     private lateinit var notificationsPermissionHelper: NotificationsPermissionHelper
 
+    private lateinit var loaderDialog: LoadingDialog
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentMainBinding.inflate(inflater, container, false)
+        initUi()
         observeViewModel()
         observeEffect()
-        initUi()
+        viewModel.handleAction(MainAction.GetAllScans)
         notificationsPermissionHelper = NotificationsPermissionHelper(requireActivity())
         return binding.root
     }
 
     private fun initUi() {
+        loaderDialog = LoadingDialog(requireContext())
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU || ContextCompat.checkSelfPermission(
                 requireContext(),
                 android.Manifest.permission.POST_NOTIFICATIONS
@@ -60,6 +71,10 @@ class MainFragment : Fragment() {
             }
         }
 
+        binding.mainRefresh.setOnRefreshListener {
+            viewModel.handleAction(MainAction.GetAllScans)
+        }
+
     }
 
     private fun observeEffect() {
@@ -68,6 +83,13 @@ class MainFragment : Fragment() {
                 viewModel.effect.collect {
                     Log.d("MainFragment", it.toString())
                     when (it) {
+                        is MainEffect.ShowLoader -> {
+                            loaderDialog.show()
+                        }
+
+                        is MainEffect.CancelLoader -> {
+                            loaderDialog.dismiss()
+                        }
                         else -> {}
                     }
                 }
@@ -78,15 +100,42 @@ class MainFragment : Fragment() {
     private fun observeViewModel() {
         lifecycleScope.launch {
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.state.collect {
-                    Log.d("MainFragment", it.toString())
-                    when (it) {
-                        else -> {
-
-                        }
+                viewModel.state.collect { state ->
+                    Log.d("MainFragment", state.toString())
+                    if(state.error != null){
+                        showErrorSnackbar(
+                            requireContext(),
+                            binding.root,
+                            state.error.asString(requireContext())
+                        )
+                    }
+                    if(state.scans != null){
+                        initAdapter(state.scans)
                     }
                 }
             }
+        }
+    }
+
+    private fun initAdapter(scans: Array<Scan>){
+        binding.rvIps.adapter = ScansAdapter(requireContext(), scans) {
+            val b = Bundle()
+            b.putStringArray("Hosts", it.hosts.toTypedArray())
+            findNavController().navigate(R.id.action_mainScreenFragment_to_scanFragment, b)
+        }
+        binding.rvIps.layoutManager = LinearLayoutManager(requireContext())
+
+        binding.mainRefresh.isRefreshing = false
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (ContextCompat.checkSelfPermission(
+                requireContext(),
+                android.Manifest.permission.POST_NOTIFICATIONS
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+            binding.includeNotificaiton.root.visibility = View.GONE
         }
     }
 
