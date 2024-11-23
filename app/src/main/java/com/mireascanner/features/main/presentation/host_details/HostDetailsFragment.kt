@@ -14,9 +14,11 @@ import com.mireascanner.R
 import com.mireascanner.common.ui.LoadingDialog
 import com.mireascanner.common.ui.showErrorSnackbar
 import com.mireascanner.databinding.FragmentHostDetailsBinding
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class HostDetailsFragment : Fragment() {
 
     private var _binding: FragmentHostDetailsBinding? = null
@@ -71,7 +73,7 @@ class HostDetailsFragment : Fragment() {
                             state.error.asString(requireContext())
                         )
                     }else if(state.details != null){
-                        TODO("Something in UI")
+
                     }
                 }
             }

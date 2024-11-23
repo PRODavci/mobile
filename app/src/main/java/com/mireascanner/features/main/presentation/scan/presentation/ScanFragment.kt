@@ -16,8 +16,6 @@ class ScanFragment : Fragment() {
     private var _binding: FragmentScanBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: ScanViewModel by viewModels()
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -44,6 +42,9 @@ class ScanFragment : Fragment() {
         }else{
             binding.rvHosts.visibility = View.GONE
             binding.tvThereIsNoHosts.visibility = View.VISIBLE
+        }
+        binding.toolbar.setNavigationOnClickListener {
+            findNavController().popBackStack()
         }
     }
 }
