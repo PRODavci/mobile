@@ -1,5 +1,6 @@
 package com.mireascanner.features.main.main
 
+import NotificationsPermissionHelper
 import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Build
@@ -25,6 +26,7 @@ class MainFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel by viewModels<MainViewModel>()
+    private lateinit var notificationsPermissionHelper: NotificationsPermissionHelper
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,6 +37,7 @@ class MainFragment : Fragment() {
         observeViewModel()
         observeEffect()
         initUi()
+        notificationsPermissionHelper = NotificationsPermissionHelper(requireActivity())
         return binding.root
     }
 
@@ -47,13 +50,16 @@ class MainFragment : Fragment() {
             binding.includeNotificaiton.root.visibility = View.GONE
         }
 
-        binding.includeNotificaiton.root.setOnClickListener {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            binding.includeNotificaiton.root.setOnClickListener {
+                notificationsPermissionHelper.checkAndRequestPermission(requireActivity())
+            }
 
+            binding.includeNotificaiton.btnOnNotifications.setOnClickListener {
+                notificationsPermissionHelper.checkAndRequestPermission(requireActivity())
+            }
         }
 
-        binding.includeNotificaiton.btnOnNotifications.setOnClickListener {
-
-        }
     }
 
     private fun observeEffect() {
@@ -87,5 +93,10 @@ class MainFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        notificationsPermissionHelper.onCleared()
     }
 }

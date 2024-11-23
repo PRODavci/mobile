@@ -25,4 +25,14 @@
     <string name="error_invalid_credentials">Email or Password incorrect</string>
     <string name="text_notifications_are_off">You offed notifications</string>
     <string name="text_on">On</string>
+    <string name="allow_notifications">Please allow notifications</string>
+    <string name="allow_notifications_desc">This app requires permission to send notifications. Allow
+        notifications.
+    </string>
+    <string name="allow_notifications_desc_last">This app requires permission to send notifications.
+        Open settings for allowing?
+    </string>
+    <string name="allow">Allow</string>
+    <string name="deny">Deny</string>
+    <string name="open">Open</string>
 </resources>

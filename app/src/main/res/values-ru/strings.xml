@@ -24,4 +24,10 @@
     <string name="error_invalid_credentials">Email или пароль неправильные</string>
     <string name="text_notifications_are_off">У вас отлючены уведомления</string>
     <string name="text_on">Включить</string>
+    <string name="allow_notifications">Разрешите уведомления</string>
+    <string name="allow_notifications_desc">Эта функция требует резрешения уведомлений.</string>
+    <string name="allow_notifications_desc_last">Эта функция требует резрешения уведомлений. Открыть настройки?</string>
+    <string name="allow">Разрешить</string>
+    <string name="deny">Отменить</string>
+    <string name="open">Открыть</string>
 </resources>

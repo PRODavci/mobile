@@ -4,7 +4,7 @@ import android.content.Context
 
 class PermissionsSharedPreferencesManager() {
 
-    suspend fun putLocationPermissionFlag(context: Context, isRationaleShow: Boolean) {
+    fun putLocationPermissionFlag(context: Context, isRationaleShow: Boolean) {
         context.getSharedPreferences(PERMISSIONS_SHARED_PREFERENCES, Context.MODE_PRIVATE).edit()
             .apply {
                 putBoolean(IS_NOTIFICATIONS_EXPLANATION_DIALOG_RATIONALE_SHOW, isRationaleShow)
@@ -12,7 +12,7 @@ class PermissionsSharedPreferencesManager() {
             }
     }
 
-    suspend fun getLocationPermissionFlag(context: Context): Boolean {
+    fun getLocationPermissionFlag(context: Context): Boolean {
         return context.getSharedPreferences(PERMISSIONS_SHARED_PREFERENCES, Context.MODE_PRIVATE)
             .getBoolean(IS_NOTIFICATIONS_EXPLANATION_DIALOG_RATIONALE_SHOW, false)
     }

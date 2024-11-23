@@ -1,6 +1,8 @@
 package com.mireascanner
 
 import NotificationsPermissionHelper
+import NotificationsPermissionHelper.Companion.PERMISSION_REQUEST_CODE
+import android.app.Activity
 import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Build
@@ -11,6 +13,7 @@ import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -47,19 +50,6 @@ class MainActivity : AppCompatActivity() {
         }
 
         setupNavigation()
-    }
-
-    override fun onCreateView(
-        parent: View?,
-        name: String,
-        context: Context,
-        attrs: AttributeSet
-    ): View? {
-        val notificationHelper = NotificationsPermissionHelper(this)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            notificationHelper.checkAndRequestPermission(this)
-        }
-        return super.onCreateView(parent, name, context, attrs)
     }
 
     private fun setupSplashScreen() {
@@ -120,7 +110,7 @@ class MainActivity : AppCompatActivity() {
         grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == NotificationsPermissionHelper.PERMISSION_REQUEST_CODE) {
+        if (requestCode == PERMISSION_REQUEST_CODE) {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 lifecycleScope.launch(Dispatchers.IO) {
                     val permissionsSharedPreferencesManager = PermissionsSharedPreferencesManager()
@@ -129,9 +119,20 @@ class MainActivity : AppCompatActivity() {
                         false
                     )
                 }
-                Log.d("PermTag", "yes")
             } else {
-                Log.d("PermTag", "no")
+                if (!ActivityCompat.shouldShowRequestPermissionRationale(
+                        this,
+                        android.Manifest.permission.POST_NOTIFICATIONS
+                    )
+                ) {
+                    lifecycleScope.launch(Dispatchers.IO) {
+                        val permissionsSharedPreferencesManager = PermissionsSharedPreferencesManager()
+                        permissionsSharedPreferencesManager.putLocationPermissionFlag(
+                            applicationContext,
+                            true
+                        )
+                    }
+                }
             }
         }
     }

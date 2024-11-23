@@ -5,16 +5,17 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import android.provider.Settings
-import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
-import com.mireascanner.MainActivity
+import com.mireascanner.R
 import com.mireascanner.common.permissions.PermissionsSharedPreferencesManager
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class NotificationsPermissionHelper(private val context: Context) {
 
@@ -22,8 +23,7 @@ class NotificationsPermissionHelper(private val context: Context) {
     private val permissionsSharedPreferencesManager = PermissionsSharedPreferencesManager()
 
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
-    fun checkAndRequestPermission(activity: MainActivity) {
-        Log.d("Permtag", "here")
+    fun checkAndRequestPermission(activity: Activity) {
         if (ActivityCompat.checkSelfPermission(
                 context,
                 android.Manifest.permission.POST_NOTIFICATIONS
@@ -32,28 +32,40 @@ class NotificationsPermissionHelper(private val context: Context) {
             coroutineScope.launch(Dispatchers.IO) {
                 val isRationaleShowLastDialog =
                     permissionsSharedPreferencesManager.getLocationPermissionFlag(context)
-                if (isRationaleShowLastDialog) {
-                    showLastPermissionDialog()
-                } else {
-                    showPermissionDialog(activity)
+                withContext(Dispatchers.Main) {
+                    if (ActivityCompat.shouldShowRequestPermissionRationale(
+                            context as Activity,
+                            android.Manifest.permission.POST_NOTIFICATIONS
+                        )
+                    ) {
+                        showPermissionDialog(activity)
+                    } else if (isRationaleShowLastDialog) {
+                        showLastPermissionDialog()
+                    } else {
+                        ActivityCompat.requestPermissions(
+                            activity,
+                            arrayOf(android.Manifest.permission.POST_NOTIFICATIONS),
+                            PERMISSION_REQUEST_CODE
+                        )
+                    }
                 }
             }
         }
     }
 
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
-    private fun showPermissionDialog(activity: MainActivity) {
+    private fun showPermissionDialog(activity: Activity) {
         AlertDialog.Builder(context)
-            .setTitle("Notification Permission")
-            .setMessage("This app requires permission to send notifications.")
-            .setPositiveButton("Allow") { _, _ ->
+            .setTitle(context.getString(R.string.allow_notifications))
+            .setMessage(context.getString(R.string.allow_notifications_desc))
+            .setPositiveButton(context.getString(R.string.allow)) { _, _ ->
                 ActivityCompat.requestPermissions(
                     activity,
                     arrayOf(android.Manifest.permission.POST_NOTIFICATIONS),
                     PERMISSION_REQUEST_CODE
                 )
             }
-            .setNegativeButton("Deny") { dialog, _ ->
+            .setNegativeButton(context.getString(R.string.deny)) { dialog, _ ->
                 coroutineScope.launch(Dispatchers.IO) {
                     permissionsSharedPreferencesManager.putLocationPermissionFlag(context, true)
                 }
@@ -66,9 +78,9 @@ class NotificationsPermissionHelper(private val context: Context) {
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     private fun showLastPermissionDialog() {
         AlertDialog.Builder(context)
-            .setTitle("Notification Permission")
-            .setMessage("This app requires permission to send notifications. Open Settings?")
-            .setPositiveButton("Allow") { _, _ ->
+            .setTitle(context.getString(R.string.allow_notifications))
+            .setMessage(context.getString(R.string.allow_notifications_desc_last))
+            .setPositiveButton(context.getString(R.string.open)) { _, _ ->
                 (context as Activity).startActivity(
                     Intent(
                         Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
@@ -76,9 +88,13 @@ class NotificationsPermissionHelper(private val context: Context) {
                     )
                 )
             }
-            .setNegativeButton("Deny") { dialog, _ -> dialog.dismiss() }
+            .setNegativeButton(context.getString(R.string.deny)) { dialog, _ -> dialog.dismiss() }
             .create()
             .show()
+    }
+
+    fun onCleared() {
+        coroutineScope.cancel()
     }
 
 
