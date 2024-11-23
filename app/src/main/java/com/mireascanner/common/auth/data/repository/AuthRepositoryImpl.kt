@@ -37,9 +37,9 @@ class AuthRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun signIn(email: String, password: String): Result<User>{
+    override suspend fun signIn(email: String, password: String): Result<User> {
         val remoteResult = remoteAuthRepository.signIn(SignBody(email = email, password = password))
-        return when(remoteResult){
+        return when (remoteResult) {
             is Result.Success -> {
                 localAuthRepository.saveAccessAndRefreshTokens(
                     remoteResult.data.tokens.accessToken,
@@ -96,6 +96,10 @@ class AuthRepositoryImpl @Inject constructor(
                 when (val remoteResult =
                     remoteAuthRepository.updateRefreshToken(localResult.data)) {
                     is Result.Success -> {
+                        localAuthRepository.saveAccessAndRefreshTokens(
+                            remoteResult.data.accessToken,
+                            remoteResult.data.refreshToken
+                        )
                         Result.Success(remoteResult.data)
                     }
 
