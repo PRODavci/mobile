@@ -19,7 +19,9 @@ class RemoteMainRepositoryImpl @Inject constructor(
             val result = mainNetworkService.getAllScans(accessToken)
             if (result.code() == 200) {
                 Result.Success(result.body()!!)
-            } else {
+            }else if(result.code() == 401){
+                Result.Error(UnauthorizedException())
+            } else{
                 Result.Error(Exception())
             }
         } catch (e: Exception) {
@@ -51,13 +53,12 @@ class RemoteMainRepositoryImpl @Inject constructor(
             val result = mainNetworkService.startScan(accessToken, StartScanBody(networks))
             if (result.code() == 200) {
                 Result.Success(result.body()!!)
-            } else if (result.code() == 401) {
-                Result.Error(UnauthorizedException())
-            } else {
+            }else{
                 Result.Error(Exception())
             }
-        } catch (e: Exception) {
+        }catch (e: Exception){
             Result.Error(e)
         }
     }
+
 }

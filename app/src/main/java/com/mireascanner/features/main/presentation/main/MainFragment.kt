@@ -18,6 +18,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mireascanner.R
 import com.mireascanner.common.main.domain.models.Scan
+import com.mireascanner.common.navigation.activityNavController
 import com.mireascanner.common.ui.LoadingDialog
 import com.mireascanner.common.ui.showErrorSnackbar
 import com.mireascanner.databinding.FragmentMainBinding
@@ -90,6 +91,10 @@ class MainFragment : Fragment() {
 
                         is MainEffect.CancelLoader -> {
                             loaderDialog.dismiss()
+                        }
+
+                        is MainEffect.NavigateToAuth -> {
+                            activityNavController().navigate(R.id.action_global_authFlowFragment)
                         }
                         else -> {}
                     }
