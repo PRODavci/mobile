@@ -64,7 +64,9 @@ class AddIpsFragment : Fragment() {
             }
         }
         binding.doneButton.setOnClickListenerSafely {
-            viewModel.saveIps()
+            if (binding.etIp.text.toString().isNotBlank()) {
+                viewModel.saveIps()
+            }
         }
     }
 
