@@ -16,7 +16,7 @@ class ScansAdapter(
 ) : RecyclerView.Adapter<ScansAdapter.ViewHolder>() {
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        private val timeStamp: TextView = view.findViewById(R.id.tv_scan_timestamp)
+        private val timeStamp: TextView = view.findViewById(R.id.tv_recycler_text)
         fun bind(scan: Scan) {
             timeStamp.text = context.getString(R.string.text_scanning) + ": " + scan.timeStamp
             itemView.setOnClickListener {
@@ -27,7 +27,7 @@ class ScansAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
-            LayoutInflater.from(parent.context).inflate(R.layout.item_scan, parent, false)
+            LayoutInflater.from(parent.context).inflate(R.layout.item_recycler_text, parent, false)
         )
     }
 

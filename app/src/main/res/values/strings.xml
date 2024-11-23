@@ -37,4 +37,6 @@
     <string name="open">Open</string>
     <string name="title_scans">Scans</string>
     <string name="text_scanning">Scanning</string>
+    <string name="title_hosts">Hosts</string>
+    <string name="text_there_is_no_hosts">There is no hosts</string>
 </resources>
