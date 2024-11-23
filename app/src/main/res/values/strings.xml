@@ -43,4 +43,6 @@
     <string name="ip" translatable="false">IP</string>
     <string name="ip_error">Введите IP в обычном формате или CIDR, или диапазон с тире.</string>
     <string name="done">Готово</string>
+    <string name="title_input_company_url">Введите хост компании</string>
+    <string name="hint_company">Хост компании</string>
 </resources>

@@ -1,9 +1,9 @@
 package com.mireascanner.di.network
 
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
-import com.mireascanner.BuildConfig
 import com.mireascanner.common.auth.data.remote.network.AuthNetworkService
 import com.mireascanner.common.main.data.remote.network.MainNetworkService
+import com.mireascanner.common.utils.RetrofitCreator
 import com.mireascanner.common.utils.HeaderInterceptor
 import dagger.Module
 import dagger.Provides
@@ -14,7 +14,6 @@ import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
-import retrofit2.create
 
 @InstallIn(SingletonComponent::class)
 @Module
@@ -36,7 +35,7 @@ class NetworkModule {
 
     @Provides
     fun provideRetrofit(client: OkHttpClient): Retrofit = Retrofit.Builder()
-        .baseUrl(BuildConfig.API_URL)
+        .baseUrl(RetrofitCreator.companyHost)
         .client(client)
         .addConverterFactory(json.asConverterFactory("application/json".toMediaType()))
         .build()

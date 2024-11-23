@@ -37,4 +37,6 @@
     <string name="text_scanning">Сканирование</string>
     <string name="title_hosts">Хосты</string>
     <string name="text_there_is_no_hosts">Нет ни единого хоста</string>
+    <string name="title_input_company_url">Input company host</string>
+    <string name="hint_company">Company host</string>
 </resources>
