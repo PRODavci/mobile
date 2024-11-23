@@ -23,4 +23,6 @@
     <string name="error_not_contains_upper_or_lower_letters">Password must contains upper and lower letters</string>
     <string name="error_email_already_used">User with this email already exists</string>
     <string name="error_invalid_credentials">Email or Password incorrect</string>
+    <string name="text_notifications_are_off">You offed notifications</string>
+    <string name="text_on">On</string>
 </resources>
