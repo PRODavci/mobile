@@ -124,9 +124,10 @@ class MainFragment : Fragment() {
     }
 
     private fun initAdapter(scans: Array<Scan>){
-        binding.rvIps.adapter = ScansAdapter(requireContext(), scans) {
+        binding.rvIps.adapter = ScansAdapter(requireContext(), scans) { host ->
             val b = Bundle()
-            b.putStringArray("Hosts", it.hosts.toTypedArray())
+            b.putIntArray("HostsIds", host.hosts.map { it.id }.toIntArray())
+            b.putStringArray("HostsIps", host.hosts.map { it.ip }.toTypedArray())
             findNavController().navigate(R.id.action_mainScreenFragment_to_scanFragment, b)
         }
         binding.rvIps.layoutManager = LinearLayoutManager(requireContext())

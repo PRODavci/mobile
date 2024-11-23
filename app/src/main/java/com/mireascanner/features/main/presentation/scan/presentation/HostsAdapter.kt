@@ -1,4 +1,4 @@
-package com.mireascanner.features.scan.presentation
+package com.mireascanner.features.main.presentation.scan.presentation
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,19 +6,20 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.mireascanner.R
+import com.mireascanner.common.main.domain.models.Host
 
 class HostsAdapter(
-    private val hosts: Array<String>,
-    private val onClick: (host: String) -> Unit
+    private val hosts: Array<Host>,
+    private val onClick: (host: Int) -> Unit
 ) : RecyclerView.Adapter<HostsAdapter.ViewHolder>() {
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view){
         val hostView: TextView = view.findViewById(R.id.tv_recycler_text)
-        fun bind(host: String){
-            hostView.text = host
+        fun bind(host: Host){
+            hostView.text = host.ip
 
             itemView.setOnClickListener {
-                onClick(host)
+                onClick(host.id)
             }
         }
     }
