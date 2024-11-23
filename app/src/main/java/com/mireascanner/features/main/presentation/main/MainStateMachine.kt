@@ -1,4 +1,4 @@
-package com.mireascanner.features.main.main
+package com.mireascanner.features.main.presentation.main
 
 import com.mireascanner.common.main.domain.MainRepository
 import com.mireascanner.common.utils.BaseStateMachine

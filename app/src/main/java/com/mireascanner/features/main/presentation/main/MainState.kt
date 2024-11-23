@@ -1,4 +1,4 @@
-package com.mireascanner.features.main.main
+package com.mireascanner.features.main.presentation.main
 
 sealed interface MainState{
     data object Content : MainState
