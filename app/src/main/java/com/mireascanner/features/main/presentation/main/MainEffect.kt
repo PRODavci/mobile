@@ -1,5 +1,8 @@
 package com.mireascanner.features.main.presentation.main
 
 sealed interface MainEffect {
-    data class NavigateToIp(val ip: String) : MainEffect
+
+    data object ShowLoader : MainEffect
+
+    data object CancelLoader : MainEffect
 }

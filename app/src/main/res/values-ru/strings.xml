@@ -33,4 +33,8 @@
     <string name="manage_ips">Редактировать IP-адреса</string>
     <string name="ip_error">Enter IP in correct format (usual, CIDR).</string>
     <string name="done">Done</string>
+    <string name="title_scans">Сканы</string>
+    <string name="text_scanning">Сканирование</string>
+    <string name="title_hosts">Хосты</string>
+    <string name="text_there_is_no_hosts">Нет ни единого хоста</string>
 </resources>

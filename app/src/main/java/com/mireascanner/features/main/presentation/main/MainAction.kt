@@ -1,4 +1,6 @@
 package com.mireascanner.features.main.presentation.main
 
-class MainAction {
+
+sealed interface MainAction {
+    data object GetAllScans : MainAction
 }

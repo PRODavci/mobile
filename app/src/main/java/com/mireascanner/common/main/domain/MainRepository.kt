@@ -1,5 +1,11 @@
 package com.mireascanner.common.main.domain
 
-interface MainRepository {
+import com.mireascanner.common.main.data.remote.model.AllScansResponse
+import com.mireascanner.common.main.data.remote.model.ScanDetailsResponse
+import com.mireascanner.common.utils.Result
 
+interface MainRepository {
+    suspend fun getAllScans(): Result<AllScansResponse>
+
+    suspend fun getScanDetails(scanId: Int): Result<ScanDetailsResponse>
 }

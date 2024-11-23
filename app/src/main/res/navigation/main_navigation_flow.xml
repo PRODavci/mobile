@@ -13,9 +13,36 @@
         <action
             android:id="@+id/action_mainScreenFragment_to_addIpsFragment"
             app:destination="@id/addIpsFragment" />
+
+        <action
+            android:id="@+id/action_mainScreenFragment_to_scanFragment"
+            app:destination="@id/scanFragment"
+            app:enterAnim="@anim/slide_right_to_zero"
+            app:exitAnim="@anim/slide_zero_to_left"
+            app:popEnterAnim="@anim/slide_left_to_zero"
+            app:popExitAnim="@anim/slide_zero_to_right"/>
     </fragment>
     <fragment
         android:id="@+id/addIpsFragment"
         android:name="com.mireascanner.features.main.presentation.add_ips.AddIpsFragment"
         android:label="AddIpsFragment" />
+
+    <fragment
+        android:id="@+id/scanFragment"
+        android:name="com.mireascanner.features.scan.presentation.ScanFragment"
+        android:label="fragment_scan"
+        tools:layout="@layout/fragment_scan" >
+        <action
+            android:id="@+id/action_scanFragment_to_hostDetailsFragment"
+            app:destination="@id/hostDetailsFragment"
+            app:enterAnim="@anim/slide_right_to_zero"
+            app:exitAnim="@anim/slide_zero_to_left"
+            app:popEnterAnim="@anim/slide_left_to_zero"
+            app:popExitAnim="@anim/slide_zero_to_right"/>
+    </fragment>
+    <fragment
+        android:id="@+id/hostDetailsFragment"
+        android:name="com.mireascanner.features.host_details.HostDetailsFragment"
+        android:label="fragment_host_details"
+        tools:layout="@layout/fragment_host_details" />
 </navigation>

@@ -8,6 +8,7 @@ import android.provider.Settings
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.mireascanner.R
 import com.mireascanner.common.permissions.PermissionsSharedPreferencesManager
 import kotlinx.coroutines.CoroutineScope
@@ -55,7 +56,7 @@ class NotificationsPermissionHelper(private val context: Context) {
 
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     private fun showPermissionDialog(activity: Activity) {
-        AlertDialog.Builder(context)
+        MaterialAlertDialogBuilder(context)
             .setTitle(context.getString(R.string.allow_notifications))
             .setMessage(context.getString(R.string.allow_notifications_desc))
             .setPositiveButton(context.getString(R.string.allow)) { _, _ ->
@@ -77,7 +78,7 @@ class NotificationsPermissionHelper(private val context: Context) {
 
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     private fun showLastPermissionDialog() {
-        AlertDialog.Builder(context)
+        MaterialAlertDialogBuilder(context)
             .setTitle(context.getString(R.string.allow_notifications))
             .setMessage(context.getString(R.string.allow_notifications_desc_last))
             .setPositiveButton(context.getString(R.string.open)) { _, _ ->

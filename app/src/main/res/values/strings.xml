@@ -35,6 +35,10 @@
     <string name="allow">Allow</string>
     <string name="deny">Deny</string>
     <string name="open">Open</string>
+    <string name="title_scans">Scans</string>
+    <string name="text_scanning">Scanning</string>
+    <string name="title_hosts">Hosts</string>
+    <string name="text_there_is_no_hosts">There is no hosts</string>
     <string name="manage_ips">Manage ips</string>
     <string name="ip" translatable="false">IP</string>
     <string name="ip_error">Введите IP в обычном формате или CIDR, или диапазон с тире.</string>

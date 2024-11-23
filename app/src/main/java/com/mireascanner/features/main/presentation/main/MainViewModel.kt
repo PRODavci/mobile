@@ -13,7 +13,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(private val stateMachine: MainStateMachine) : ViewModel() {
-    private val _state = MutableStateFlow<MainState>(MainState.Loading)
+    private val _state = MutableStateFlow(MainState())
     val state = _state.asStateFlow()
 
     private val _effect = MutableSharedFlow<MainEffect>()
@@ -26,8 +26,8 @@ class MainViewModel @Inject constructor(private val stateMachine: MainStateMachi
             }
         }
         viewModelScope.launch {
-            stateMachine.effect.collect {
-                _effect.emit(it)
+            stateMachine.effect.collect { newEffect ->
+                _effect.emit(newEffect)
             }
         }
     }
