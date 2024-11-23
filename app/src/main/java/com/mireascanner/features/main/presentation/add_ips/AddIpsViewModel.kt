@@ -2,20 +2,32 @@ package com.mireascanner.features.main.presentation.add_ips
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.mireascanner.common.exceptions.UnauthorizedException
+import com.mireascanner.common.main.data.repository.MainRepositoryImpl
+import com.mireascanner.common.main.domain.MainRepository
 import com.mireascanner.common.main.domain.models.AddIp
+import com.mireascanner.common.utils.Result
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
 @HiltViewModel
-class AddIpsViewModel @Inject constructor() : ViewModel() {
+class AddIpsViewModel @Inject constructor(
+    private val mainRepository: MainRepository
+) : ViewModel() {
 
     private val ips = mutableMapOf<Int, String>()
     private val _ipsState = MutableStateFlow(emptyList<AddIp>())
     val ipsState = _ipsState.asStateFlow()
+
+    private val _effect = MutableSharedFlow<AddIpsEffect>()
+    val effect = _effect.asSharedFlow()
 
     private var increment = 0
 
@@ -38,5 +50,27 @@ class AddIpsViewModel @Inject constructor() : ViewModel() {
             list.removeAt(list.indexOfLast { it.id == addIp.id })
             _ipsState.value = list.toList()
         }
+    }
+
+    fun saveIps() {
+        viewModelScope.launch(Dispatchers.IO) {
+            _effect.emit(AddIpsEffect.ShowLoading)
+            when (val result = mainRepository.startScan(ipsState.value.map { it.ip })) {
+                is Result.Success -> {
+                    _effect.emit(AddIpsEffect.HideLoading)
+                    _effect.emit(AddIpsEffect.NavigateBack)
+                }
+
+                is Result.Error -> {
+                    if (result.exception is UnauthorizedException) {
+                        _effect.emit(AddIpsEffect.NavigateToAuth)
+                    } else {
+                        _effect.emit(AddIpsEffect.ShowError)
+                    }
+                }
+            }
+            _effect.emit(AddIpsEffect.HideLoading)
+        }
+
     }
 }

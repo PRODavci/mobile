@@ -2,6 +2,7 @@ package com.mireascanner.common.main.data.remote.network
 
 import com.mireascanner.common.main.data.remote.model.AllScansResponse
 import com.mireascanner.common.main.data.remote.model.ScanDetailsResponse
+import com.mireascanner.common.main.data.remote.model.StartScanBody
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -24,5 +25,11 @@ interface MainNetworkService {
         @Header(AUTHORIZATION) accessToken: String,
         @Path("scanId") scanId: Int
     ): Response<ScanDetailsResponse>
+
+    @POST("scans/start")
+    suspend fun startScan(
+        @Header(AUTHORIZATION) accessToken: String,
+        @Body startScanBody: StartScanBody
+    ): Response<StartScanBody>
 
 }
