@@ -1,5 +1,6 @@
 package com.mireascanner.features.auth.presentation.sign_up
 
+import android.provider.ContactsContract.CommonDataKinds.Email
 import android.util.Log
 import com.mireascanner.R
 import com.mireascanner.common.auth.domain.AuthRepository
@@ -105,17 +106,18 @@ class SignUpStateMachine @Inject constructor(
 
                         is Result.Error -> {
                             Log.e("SignUpStateMachine", result.exception.message, result.exception)
-                            if(result.exception is EmailAlreadyUsedException){
-                                return@on state.override {
-                                    SignUpState(
-                                        error = UIText.StringResource(R.string.error_email_already_used),
-                                        isSignUpButtonAvailable = true
-                                    )
+                            val errorText = when (result.exception) {
+                                is EmailAlreadyUsedException -> {
+                                    UIText.StringResource(R.string.error_email_already_used)
+                                }
+
+                                else -> {
+                                    UIText.StringResource(R.string.error_something_went_wrong)
                                 }
                             }
                             return@on state.override {
                                 SignUpState(
-                                    error = UIText.StringResource(R.string.error_something_went_wrong),
+                                    error = errorText,
                                     isSignUpButtonAvailable = true
                                 )
                             }

@@ -52,7 +52,7 @@ class SignInFragment : Fragment() {
                         showErrorSnackbar(
                             requireContext(),
                             binding.root,
-                            R.string.error_something_went_wrong
+                            state.error.asString(requireContext())
                         )
                     }
                     if (state.emailError != null) {

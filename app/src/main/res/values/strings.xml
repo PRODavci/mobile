@@ -22,4 +22,5 @@
     <string name="error_not_contanis_letters_or_digits">Password must contains letters and digits</string>
     <string name="error_not_contains_upper_or_lower_letters">Password must contains upper and lower letters</string>
     <string name="error_email_already_used">User with this email already exists</string>
+    <string name="error_invalid_credentials">Email or Password incorrect</string>
 </resources>
