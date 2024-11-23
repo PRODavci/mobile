@@ -1,5 +1,6 @@
 package com.mireascanner.common.main.data.remote.repository
 
+import com.mireascanner.common.exceptions.UnauthorizedException
 import com.mireascanner.common.main.data.remote.model.AllScansResponse
 import com.mireascanner.common.main.data.remote.model.ScanDetailsResponse
 import com.mireascanner.common.main.data.remote.network.MainNetworkService
@@ -17,7 +18,9 @@ class RemoteMainRepositoryImpl @Inject constructor(
             val result = mainNetworkService.getAllScans(accessToken)
             if(result.code() == 200){
                 Result.Success(result.body()!!)
-            }else{
+            }else if(result.code() == 401){
+                Result.Error(UnauthorizedException())
+            } else{
                 Result.Error(Exception())
             }
         }catch (e: Exception){

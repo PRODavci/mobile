@@ -42,7 +42,7 @@
     </fragment>
     <fragment
         android:id="@+id/hostDetailsFragment"
-        android:name="com.mireascanner.features.host_details.HostDetailsFragment"
+        android:name="com.mireascanner.features.main.presentation.host_details.HostDetailsFragment"
         android:label="fragment_host_details"
         tools:layout="@layout/fragment_host_details" />
 </navigation>

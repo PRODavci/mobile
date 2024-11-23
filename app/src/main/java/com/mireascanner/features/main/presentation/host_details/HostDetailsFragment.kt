@@ -1,4 +1,4 @@
-package com.mireascanner.features.host_details
+package com.mireascanner.features.main.presentation.host_details
 
 import androidx.fragment.app.viewModels
 import android.os.Bundle

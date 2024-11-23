@@ -1,6 +1,7 @@
 package com.mireascanner.features.main.presentation.main
 
 import com.mireascanner.R
+import com.mireascanner.common.exceptions.UnauthorizedException
 import com.mireascanner.common.main.data.utils.toDomain
 import com.mireascanner.common.main.domain.MainRepository
 import com.mireascanner.common.utils.BaseStateMachine
@@ -28,12 +29,19 @@ class MainStateMachine @Inject constructor(
                         }
 
                         is Result.Error -> {
-                            return@on state.override {
-                                MainState(
-                                    error = UIText.StringResource(
-                                        R.string.error_something_went_wrong
+                            when(result.exception){
+                                is UnauthorizedException -> {
+                                    updateEffect(MainEffect.NavigateToAuth)
+                                    return@on state.noChange()
+                                }
+                                else -> {
+                                    return@on state.override {
+                                    MainState(
+                                        error = UIText.StringResource(
+                                            R.string.error_something_went_wrong
+                                        )
                                     )
-                                )
+                                }}
                             }
                         }
                     }
