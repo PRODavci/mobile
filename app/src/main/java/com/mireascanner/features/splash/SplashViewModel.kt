@@ -1,4 +1,4 @@
-package com.mireascanner.splash
+package com.mireascanner.features.splash
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -9,8 +9,8 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class MainViewModel @Inject constructor(private val stateMachine: MainStateMachine) : ViewModel() {
-    private val _state = MutableStateFlow<MainState>(MainState.Loading)
+class SplashViewModel @Inject constructor(private val stateMachine: SplashStateMachine) : ViewModel() {
+    private val _state = MutableStateFlow<SplashState>(SplashState.Loading)
     val state = _state.asStateFlow()
 
     init {

@@ -1,4 +1,4 @@
-package com.mireascanner.splash
+package com.mireascanner.features.splash
 
 import com.mireascanner.common.auth.domain.AuthRepository
 import com.mireascanner.common.exceptions.UnauthorizedException
@@ -8,32 +8,32 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import javax.inject.Inject
 
 @OptIn(ExperimentalCoroutinesApi::class)
-class MainStateMachine @Inject constructor(private val authRepository: AuthRepository) :
-    BaseStateMachine<MainState, MainAction, Unit>(initialState = MainState.Loading) {
+class SplashStateMachine @Inject constructor(private val authRepository: AuthRepository) :
+    BaseStateMachine<SplashState, SplashAction, Unit>(initialState = SplashState.Loading) {
 
     init {
         spec {
-            inState<MainState.Loading> {
+            inState<SplashState.Loading> {
                 onEnter { state ->
                     val result =
                         authRepository.checkUserDataSafely()
                     when (result) {
                         is Result.Success -> {
-                            state.override { MainState.ContentState(true) }
+                            state.override { SplashState.ContentState(true) }
                         }
 
                         is Result.Error -> {
                             if (result.exception is UnauthorizedException) {
-                                state.override { MainState.ContentState(false) }
+                                state.override { SplashState.ContentState(false) }
                             } else {
-                                state.override { MainState.ContentState( true) }
+                                state.override { SplashState.ContentState(true) }
                             }
                         }
                     }
                 }
             }
 
-            inState<MainState.ContentState> { }
+            inState<SplashState.ContentState> { }
         }
     }
 }

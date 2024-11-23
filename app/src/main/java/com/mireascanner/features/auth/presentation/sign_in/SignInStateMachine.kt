@@ -1,9 +1,11 @@
 package com.mireascanner.features.auth.presentation.sign_in
 
+import android.util.Log
 import com.mireascanner.R
 import com.mireascanner.common.auth.domain.AuthRepository
 import com.mireascanner.common.auth.domain.usecase.validate_email.ValidateEmailUseCase
 import com.mireascanner.common.auth.domain.usecase.validate_email.ValidationEmailResult
+import com.mireascanner.common.exceptions.InvalidCredentialsException
 import com.mireascanner.common.utils.BaseStateMachine
 import com.mireascanner.common.utils.Result
 import com.mireascanner.common.utils.UIText
@@ -61,9 +63,19 @@ class SignInStateMachine @Inject constructor(
                         }
 
                         is Result.Error -> {
+                            Log.e("SignInStateMachine", result.exception.message, result.exception)
+                            val errorText = when (result.exception) {
+                                is InvalidCredentialsException -> {
+                                    UIText.StringResource(R.string.error_invalid_credentials)
+                                }
+
+                                else -> {
+                                    UIText.StringResource(R.string.error_something_went_wrong)
+                                }
+                            }
                             state.override {
                                 SignInState(
-                                    error = UIText.StringResource(R.string.error_something_went_wrong),
+                                    error = errorText,
                                     isSignInButtonEnabled = true
                                 )
                             }

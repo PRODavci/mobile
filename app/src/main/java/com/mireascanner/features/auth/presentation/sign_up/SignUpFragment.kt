@@ -70,10 +70,6 @@ class SignUpFragment : Fragment() {
             }
         }
 
-        binding.tvToLogin.setOnClickListener {
-            findNavController().popBackStack()
-        }
-
         binding.etRegistrationEmail.doOnTextChanged { text, _, _, _ ->
             viewModel.handleAction(SignUpAction.EmailChanged(text.toString()))
         }

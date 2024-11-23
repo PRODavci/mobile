@@ -20,8 +20,8 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.NavHostFragment
 import com.mireascanner.common.permissions.PermissionsSharedPreferencesManager
 import com.mireascanner.databinding.ActivityMainBinding
-import com.mireascanner.splash.MainState
-import com.mireascanner.splash.MainViewModel
+import com.mireascanner.features.splash.SplashState
+import com.mireascanner.features.splash.SplashViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -29,7 +29,7 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
-    private val mainViewModel by viewModels<MainViewModel>()
+    private val splashViewModel by viewModels<SplashViewModel>()
 
     private var _binding: ActivityMainBinding? = null
     private val binding get() = _binding!!
@@ -66,11 +66,11 @@ class MainActivity : AppCompatActivity() {
         var keepSplashScreen = true
         lifecycleScope.launch {
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                mainViewModel.state.collect { state ->
+                splashViewModel.state.collect { state ->
                     keepSplashScreen = when (state) {
-                        is MainState.Loading -> true
+                        is SplashState.Loading -> true
 
-                        is MainState.ContentState -> false
+                        is SplashState.ContentState -> false
                     }
                 }
             }
@@ -88,16 +88,16 @@ class MainActivity : AppCompatActivity() {
 
         lifecycleScope.launch {
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                mainViewModel.state.collect { state ->
+                splashViewModel.state.collect { state ->
                     val navGraph =
                         navController.navInflater.inflate(R.navigation.global_navigation_graph)
                     navGraph.setStartDestination(
                         when (state) {
-                            is MainState.Loading -> {
+                            is SplashState.Loading -> {
                                 R.id.authFlowFragment
                             }
 
-                            is MainState.ContentState -> {
+                            is SplashState.ContentState -> {
                                 if (state.isAuthorized) {
                                     R.id.mainFlowFragment
                                 } else {

@@ -13,7 +13,11 @@
         <action
             android:id="@+id/action_sign_in_to_sign_up"
             app:destination="@id/signUpFragment"
-            app:popUpTo="@id/signInFragment" />
+            app:enterAnim="@anim/slide_right_to_zero"
+            app:exitAnim="@anim/slide_zero_to_left"
+            app:popEnterAnim="@anim/slide_left_to_zero"
+            app:popExitAnim="@anim/slide_zero_to_right"
+            />
     </fragment>
     <fragment
         android:id="@+id/signUpFragment"
