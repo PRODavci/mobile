@@ -4,6 +4,7 @@ import NotificationsPermissionHelper
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -35,6 +36,8 @@ class MainFragment : Fragment() {
 
     private lateinit var loaderDialog: LoadingDialog
 
+    private val UPDATE_INTERVAL = 1 * 60 * 1000L
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -51,6 +54,7 @@ class MainFragment : Fragment() {
 
     private fun initUi() {
         loaderDialog = LoadingDialog(requireContext())
+        loaderDialog.show()
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU || ContextCompat.checkSelfPermission(
                 requireContext(),
                 android.Manifest.permission.POST_NOTIFICATIONS
