@@ -15,4 +15,5 @@ data class HostServiceResponse (
     val version: String?,
     val conf: String?,
     val ostype: String?,
+    val cves: List<VulnerabilityResponse>
 )

@@ -11,7 +11,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.mireascanner.R
 import com.mireascanner.common.main.data.remote.model.HostServiceResponse
 
-class HostServiceAdapter : ListAdapter<HostServiceResponse, HostServiceAdapter.HostServiceViewHolder>(HostServiceDiffCallback()) {
+class HostServiceAdapter(
+    private val onItemClick: (service: HostServiceResponse) -> Unit
+) : ListAdapter<HostServiceResponse, HostServiceAdapter.HostServiceViewHolder>(HostServiceDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HostServiceViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.host_item, parent, false)
@@ -25,7 +27,7 @@ class HostServiceAdapter : ListAdapter<HostServiceResponse, HostServiceAdapter.H
         holder.bind(service)
     }
 
-    class HostServiceViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class HostServiceViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val nameTextView: TextView = itemView.findViewById(R.id.textViewName)
         private val protocolTextView: TextView = itemView.findViewById(R.id.textViewProtocol)
         private val portTextView: TextView = itemView.findViewById(R.id.textViewPort)
@@ -45,6 +47,9 @@ class HostServiceAdapter : ListAdapter<HostServiceResponse, HostServiceAdapter.H
             }
             ostypeTextView.text = service.ostype ?: "N/A"
             confTextview.text = service.conf
+            itemView.setOnClickListener {
+                onItemClick(service)
+            }
 //            idHostIdTextview.text = "${service.id}, ${service.host_id}"
         }
     }

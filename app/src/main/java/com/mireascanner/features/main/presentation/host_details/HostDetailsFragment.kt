@@ -19,6 +19,7 @@ import com.mireascanner.databinding.FragmentHostDetailsBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
+import kotlinx.serialization.Serializable
 
 @AndroidEntryPoint
 class HostDetailsFragment : Fragment() {
@@ -98,7 +99,14 @@ class HostDetailsFragment : Fragment() {
     }
 
     private fun initUi() {
-        adapter = HostServiceAdapter()
+        adapter = HostServiceAdapter{ service ->
+            val b = Bundle()
+            b.putStringArray("Description", service.cves.map { it.description }.toTypedArray())
+            b.putString("Product", service.product)
+            b.putFloatArray("BaseScore", service.cves.map { it.base_score }.toTypedArray().toFloatArray())
+            b.putStringArray("Refs", service.cves.map { it.references.joinToString(separator = ", ") }.toTypedArray())
+            findNavController().navigate(R.id.action_hostDetailsFragment_to_vulnerabilitiesFragment)
+        }
         binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
         loadingDialog = LoadingDialog(requireContext())

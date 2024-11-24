@@ -32,7 +32,7 @@ android {
             buildConfigField(
                 "String",
                 "API_URL",
-                "\"https://156c-46-138-75-161.ngrok-free.app/v1/\""
+                "\"https://next-rabbit-legal.ngrok-free.app/api/v1/\""
             )
         }
 
@@ -46,7 +46,7 @@ android {
             buildConfigField(
                 "String",
                 "API_URL",
-                "\"https://156c-46-138-75-161.ngrok-free.app/v1/\""
+                "\"https://next-rabbit-legal.ngrok-free.app/api/v1/\""
             )
         }
     }

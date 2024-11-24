@@ -35,5 +35,5 @@ object RetrofitCreator {
     fun provideMainNetworkService(): MainNetworkService =
         provideRetrofit().create(MainNetworkService::class.java)
 
-    var companyHost = "https://156c-46-138-75-161.ngrok-free.app/v1/"
+    var companyHost = "https://next-rabbit-legal.ngrok-free.app/api/v1/"
 }

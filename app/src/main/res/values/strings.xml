@@ -48,4 +48,8 @@
     <string name="text_services_not_found">Services not found</string>
     <string name="ip_error">Input IP in simple format or CIDR, or range with dash</string>
     <string name="title_vulnerabilities">Vulnerabilities</string>
+    <string name="text_product">Product</string>
+    <string name="text_description">Description</string>
+    <string name="text_base_score">Base score</string>
+    <string name="text_refs">References</string>
 </resources>
