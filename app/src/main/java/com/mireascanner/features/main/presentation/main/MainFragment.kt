@@ -132,6 +132,7 @@ class MainFragment : Fragment() {
             val b = Bundle()
             b.putIntArray("HostsIds", host.hosts.map { it.id }.toIntArray())
             b.putStringArray("HostsIps", host.hosts.map { it.ip }.toTypedArray())
+            b.putInt("ScanId", host.id )
             findNavController().navigate(R.id.action_mainScreenFragment_to_scanFragment, b)
         }
         binding.rvIps.layoutManager = LinearLayoutManager(requireContext())

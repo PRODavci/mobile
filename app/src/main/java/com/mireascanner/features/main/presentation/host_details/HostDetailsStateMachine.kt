@@ -21,7 +21,7 @@ class HostDetailsStateMachine @Inject constructor(
             inState<HostDetailsState> {
                 on<HostDetailsAction.GetHostDetails> { action, state ->
                     updateEffect(HostDetailsEffect.ShowLoader)
-                    val result = mainRepository.getScanDetails(action.hostId)
+                    val result = mainRepository.getScanDetails(action.scanId)
                     updateEffect(HostDetailsEffect.CancelLoader)
                     when (result) {
                         is Result.Success -> {
