@@ -1,6 +1,7 @@
 package com.mireascanner.features.main.presentation.add_ips
 
 import android.util.Log
+import android.view.View
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mireascanner.common.exceptions.UnauthorizedException
@@ -31,6 +32,26 @@ class AddIpsViewModel @Inject constructor(
     val effect = _effect.asSharedFlow()
 
     private var increment = 0
+
+    fun getNowIps(){
+        viewModelScope.launch {
+            _effect.emit(AddIpsEffect.ShowLoading)
+            val result = mainRepository.getAllScans()
+            when(result){
+                is Result.Success -> {
+                    val ips = result.data.data.first().network.split(",")
+                    for(ip in ips){
+                        addIp(ip)
+                    }
+                }
+                is Result.Error -> {
+
+                }
+            }
+            _effect.emit(AddIpsEffect.HideLoading)
+
+        }
+    }
 
 
     fun addIp(ip: String) {

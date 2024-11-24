@@ -120,24 +120,24 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/textViewConf" />
 
-    <!-- ID и Host ID -->
-    <TextView
-        android:id="@+id/textViewIdHostId"
-        android:layout_width = "0dp"
-        android:layout_height = "wrap_content"
-        android:maxLines = "1"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:textSize="20sp"
-        app:layout_constraintStart_toEndOf="@id/labelIdHostId"
-        app:layout_constraintTop_toBottomOf="@id/textViewConf"/>
+<!--    &lt;!&ndash; ID и Host ID &ndash;&gt;-->
+<!--    <TextView-->
+<!--        android:id="@+id/textViewIdHostId"-->
+<!--        android:layout_width = "0dp"-->
+<!--        android:layout_height = "wrap_content"-->
+<!--        android:maxLines = "1"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        android:textSize="20sp"-->
+<!--        app:layout_constraintStart_toEndOf="@id/labelIdHostId"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/textViewConf"/>-->
 
-    <TextView
-        android:id="@+id/labelIdHostId"
-        android:layout_width = "wrap_content"
-        android:layout_height = "wrap_content"
-        android:text = "ID и Host ID: "
-        app:layout_constraintStart_toStartOf="parent"
-        android:textSize="20sp"
-        app:layout_constraintTop_toTopOf="@id/textViewIdHostId"/>
+<!--    <TextView-->
+<!--        android:id="@+id/labelIdHostId"-->
+<!--        android:layout_width = "wrap_content"-->
+<!--        android:layout_height = "wrap_content"-->
+<!--        android:text = "ID и Host ID: "-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        android:textSize="20sp"-->
+<!--        app:layout_constraintTop_toTopOf="@id/textViewIdHostId"/>-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

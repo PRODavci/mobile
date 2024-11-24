@@ -32,7 +32,7 @@ class HostServiceAdapter : ListAdapter<HostServiceResponse, HostServiceAdapter.H
         private val productVersionTextView: TextView = itemView.findViewById(R.id.textViewProductVersion)
         private val ostypeTextView: TextView = itemView.findViewById(R.id.textViewOstype)
         private val confTextview: TextView = itemView.findViewById(R.id.textViewConf)
-        private val idHostIdTextview : TextView = itemView.findViewById(R.id.textViewIdHostId)
+//        private val idHostIdTextview : TextView = itemView.findViewById(R.id.textViewIdHostId)
 
         fun bind(service: HostServiceResponse) {
             nameTextView.text = service.name
@@ -45,7 +45,7 @@ class HostServiceAdapter : ListAdapter<HostServiceResponse, HostServiceAdapter.H
             }
             ostypeTextView.text = service.ostype ?: "N/A"
             confTextview.text = service.conf
-            idHostIdTextview.text = "${service.id}, ${service.host_id}"
+//            idHostIdTextview.text = "${service.id}, ${service.host_id}"
         }
     }
 

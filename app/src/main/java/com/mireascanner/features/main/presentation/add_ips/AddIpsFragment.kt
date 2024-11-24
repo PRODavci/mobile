@@ -52,6 +52,9 @@ class AddIpsFragment : Fragment() {
         binding.ipsRecyclerview.layoutManager = LinearLayoutManager(context)
         observeViewModel()
         initUI()
+        loadingDialog.show()
+        viewModel.getNowIps()
+
     }
 
     private fun initUI() {
@@ -64,7 +67,7 @@ class AddIpsFragment : Fragment() {
             }
         }
         binding.doneButton.setOnClickListenerSafely {
-            if (binding.etIp.text.toString().isNotBlank()) {
+            if (adapter.itemCount != 0) {
                 viewModel.saveIps()
             }
         }
