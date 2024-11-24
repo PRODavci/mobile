@@ -30,6 +30,7 @@ class HostDetailsFragment : Fragment() {
 
     private lateinit var loadingDialog: LoadingDialog
 
+    private var scanId: Int? = null
     private var hostId: Int? = null
 
     private lateinit var adapter: HostServiceAdapter
@@ -105,16 +106,18 @@ class HostDetailsFragment : Fragment() {
 
         binding.hostDetailsRefresh.setOnRefreshListener {
             binding.tvNoServises.visibility = View.GONE
-            viewModel.handleAction(HostDetailsAction.GetHostDetails(hostId!!))
+            viewModel.handleAction(HostDetailsAction.GetHostDetails(hostId!!, scanId!!))
         }
 
         binding.toolbar.setNavigationOnClickListener {
             findNavController().popBackStack()
         }
+        val scanIdArgument = arguments?.getInt("ScanId")
         val hostIdArgument = arguments?.getInt("HostId")
-        if (hostIdArgument != null) {
+        if (scanIdArgument != null && hostIdArgument != null) {
+            scanId = scanIdArgument
             hostId = hostIdArgument
-            viewModel.handleAction(HostDetailsAction.GetHostDetails(hostId!!))
+            viewModel.handleAction(HostDetailsAction.GetHostDetails(hostId!!, scanId!!))
         } else {
             showErrorSnackbar(
                 requireContext(),

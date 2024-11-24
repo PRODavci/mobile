@@ -28,13 +28,15 @@ class ScanFragment : Fragment() {
     private fun initUi() {
         val hostsIds = arguments?.getIntArray("HostsIds")
         val hostsIps = arguments?.getStringArray("HostsIps")
-        if(hostsIps != null && hostsIds != null && hostsIds.isNotEmpty() && hostsIps.isNotEmpty()) {
+        val scanId = arguments?.getInt("ScanId")
+        if(hostsIps != null && hostsIds != null && scanId != null && hostsIds.isNotEmpty() && hostsIps.isNotEmpty()) {
             val hosts = arrayListOf<Host>()
             for(i in hostsIps.indices){
                 hosts.add(Host(hostsIds[i], hostsIps[i]))
             }
             binding.rvHosts.adapter = HostsAdapter(hosts.toTypedArray()) {
                 val b = Bundle()
+                b.putInt("ScanId", scanId)
                 b.putInt("HostId", it)
                 findNavController().navigate(R.id.action_scanFragment_to_hostDetailsFragment, b)
             }

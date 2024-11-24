@@ -10,7 +10,8 @@ fun AllScansResponse.toDomain(): Array<Scan>{
     for(scanResponse in this.data){
         scans.add(Scan(
             timeStamp = scanResponse.timestamp,
-            hosts = scanResponse.hosts.map { it.toDomain() }
+            hosts = scanResponse.hosts.map { it.toDomain() },
+            id = scanResponse.id
         ))
     }
     return scans.toTypedArray()
