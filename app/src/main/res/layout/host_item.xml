@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp">
+
+    <!-- Имя сервиса -->
+    <TextView
+        android:id="@+id/textViewName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/labelName"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/labelName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Имя сервиса:"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/textViewName" />
+
+    <!-- Протокол -->
+    <TextView
+        android:id="@+id/textViewProtocol"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/labelProtocol"
+        app:layout_constraintTop_toBottomOf="@id/textViewName" />
+
+    <TextView
+        android:id="@+id/labelProtocol"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Протокол:"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/textViewProtocol" />
+
+    <!-- Порт -->
+    <TextView
+        android:id="@+id/textViewPort"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/labelPort"
+        app:layout_constraintTop_toBottomOf="@id/textViewProtocol" />
+
+    <TextView
+        android:id="@+id/labelPort"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Порт:"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/textViewPort" />
+
+    <!-- Версия продукта -->
+    <TextView
+        android:id="@+id/textViewProductVersion"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/labelProductVersion"
+        app:layout_constraintTop_toBottomOf="@id/textViewPort" />
+
+    <TextView
+        android:id="@+id/labelProductVersion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Версия продукта:"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/textViewProductVersion" />
+
+    <!-- Тип ОС -->
+    <TextView
+        android:id="@+id/textViewOstype"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/labelOstype"
+        app:layout_constraintTop_toBottomOf="@id/textViewProductVersion" />
+
+    <TextView
+        android:id="@+id/labelOstype"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Тип ОС:"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/textViewOstype" />
+
+    <!-- Конфигурация -->
+    <TextView
+        android:id="@+id/textViewConf"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/labelConf"
+        app:layout_constraintTop_toBottomOf="@id/textViewOstype" />
+
+    <TextView
+        android:id="@+id/labelConf"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Конфигурация:"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/textViewConf" />
+
+    <!-- ID и Host ID -->
+    <TextView
+        android:id="@+id/textViewIdHostId"
+        android:layout_width = "0dp"
+        android:layout_height = "wrap_content"
+        android:maxLines = "1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/labelIdHostId"
+        app:layout_constraintTop_toBottomOf="@id/textViewConf"/>
+
+    <TextView
+        android:id="@+id/labelIdHostId"
+        android:layout_width = "wrap_content"
+        android:layout_height = "wrap_content"
+        android:text = "ID и Host ID:"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/textViewIdHostId"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

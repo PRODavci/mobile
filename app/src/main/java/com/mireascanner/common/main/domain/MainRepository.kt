@@ -3,6 +3,7 @@ package com.mireascanner.common.main.domain
 import com.mireascanner.common.main.data.remote.model.AllScansResponse
 import com.mireascanner.common.main.data.remote.model.ScanDetailsResponse
 import com.mireascanner.common.main.data.remote.model.StartScanBody
+import com.mireascanner.common.main.data.remote.model.StartScanResponse
 import com.mireascanner.common.utils.Result
 
 interface MainRepository {
@@ -10,5 +11,5 @@ interface MainRepository {
 
     suspend fun getScanDetails(scanId: Int): Result<ScanDetailsResponse>
 
-    suspend fun startScan(networks: List<String>): Result<StartScanBody>
+    suspend fun startScan(networks: List<String>): Result<StartScanResponse>
 }

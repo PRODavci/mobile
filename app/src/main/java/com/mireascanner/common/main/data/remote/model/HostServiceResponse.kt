@@ -10,9 +10,9 @@ data class HostServiceResponse (
     val host_id: Int,
     val port: Int,
     val protocol: String,
-    val name: String,
+    val name: String?,
     val product: String?,
     val version: String?,
+    val conf: String?,
     val ostype: String?,
-    val conf: String
 )

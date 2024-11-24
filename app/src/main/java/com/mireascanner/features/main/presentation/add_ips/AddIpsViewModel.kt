@@ -1,5 +1,6 @@
 package com.mireascanner.features.main.presentation.add_ips
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mireascanner.common.exceptions.UnauthorizedException
@@ -62,6 +63,7 @@ class AddIpsViewModel @Inject constructor(
                 }
 
                 is Result.Error -> {
+                    Log.d("Tagdelete", result.exception.toString())
                     if (result.exception is UnauthorizedException) {
                         _effect.emit(AddIpsEffect.NavigateToAuth)
                     } else {

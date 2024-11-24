@@ -1,5 +1,6 @@
 package com.mireascanner.features.main.presentation.host_details
 
+import android.util.Log
 import com.mireascanner.R
 import com.mireascanner.common.main.domain.MainRepository
 import com.mireascanner.common.utils.BaseStateMachine
@@ -22,12 +23,14 @@ class HostDetailsStateMachine @Inject constructor(
                     updateEffect(HostDetailsEffect.CancelLoader)
                     when (result) {
                         is Result.Success -> {
-                            return@on state.override { HostDetailsState(details = result.data) }
+                            Log.d("Tagdelete", HostDetailsState(details = result.data.hosts.find { it.id == action.hostId }).toString())
+                            return@on state.override { HostDetailsState(details = result.data.hosts.find { it.id == action.hostId }) }
                         }
 
                         is Result.Error -> {
                             when (result.exception) {
                                 else -> {
+                                    Log.d("Tagdelete", result.exception.toString())
                                     return@on state.override {
                                         HostDetailsState(
                                             error = UIText.StringResource(

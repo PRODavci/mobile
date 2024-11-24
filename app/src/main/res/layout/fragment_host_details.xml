@@ -4,7 +4,32 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/host_details_refresh"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".features.main.presentation.host_details.HostDetailsFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:text="@string/services"
+            android:textAlignment="center"
+            android:textSize="24sp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:orientation="vertical"
+            tools:listitem="@layout/host_item" />
+    </LinearLayout>
 
 
 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

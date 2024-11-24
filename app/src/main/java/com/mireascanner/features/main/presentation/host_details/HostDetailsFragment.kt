@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.mireascanner.R
 import com.mireascanner.common.ui.LoadingDialog
 import com.mireascanner.common.ui.showErrorSnackbar
@@ -30,15 +31,21 @@ class HostDetailsFragment : Fragment() {
 
     private var hostId: Int? = null
 
+    private lateinit var adapter: HostServiceAdapter
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentHostDetailsBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         initUi()
         observeEffect()
         observeViewModel()
-        return binding.root
     }
 
     private fun observeEffect() {
@@ -54,6 +61,7 @@ class HostDetailsFragment : Fragment() {
                         is HostDetailsEffect.CancelLoader -> {
                             loadingDialog.dismiss()
                         }
+
                         else -> {}
                     }
                 }
@@ -66,14 +74,15 @@ class HostDetailsFragment : Fragment() {
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.state.collect { state ->
                     Log.d("HostDetailsFragment", state.toString())
-                    if(state.error != null){
+                    if (state.error != null) {
                         showErrorSnackbar(
                             requireContext(),
                             binding.root,
                             state.error.asString(requireContext())
                         )
-                    }else if(state.details != null){
-
+                    } else if (state.details != null) {
+                        Log.d("HostDetailsFragment", "here")
+                        adapter.submitList(state.details.services)
                     }
                 }
             }
@@ -81,6 +90,9 @@ class HostDetailsFragment : Fragment() {
     }
 
     private fun initUi() {
+        adapter = HostServiceAdapter()
+        binding.recyclerView.adapter = adapter
+        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
         loadingDialog = LoadingDialog(requireContext())
         binding.hostDetailsRefresh.setOnRefreshListener {
             viewModel.handleAction(HostDetailsAction.GetHostDetails(hostId!!))

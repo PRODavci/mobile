@@ -4,6 +4,7 @@ import com.mireascanner.common.exceptions.UnauthorizedException
 import com.mireascanner.common.main.data.remote.model.AllScansResponse
 import com.mireascanner.common.main.data.remote.model.ScanDetailsResponse
 import com.mireascanner.common.main.data.remote.model.StartScanBody
+import com.mireascanner.common.main.data.remote.model.StartScanResponse
 import com.mireascanner.common.main.data.remote.network.MainNetworkService
 import com.mireascanner.common.utils.Result
 import javax.inject.Inject
@@ -48,7 +49,7 @@ class RemoteMainRepositoryImpl @Inject constructor(
     override suspend fun startScan(
         accessToken: String,
         networks: List<String>
-    ): Result<StartScanBody> {
+    ): Result<StartScanResponse> {
         return try {
             val result = mainNetworkService.startScan(accessToken, StartScanBody(networks))
             if (result.code() == 200) {
