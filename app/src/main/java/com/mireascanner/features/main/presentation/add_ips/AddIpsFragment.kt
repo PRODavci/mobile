@@ -68,6 +68,10 @@ class AddIpsFragment : Fragment() {
                 viewModel.saveIps()
             }
         }
+
+        binding.toolbar.setNavigationOnClickListener {
+            findNavController().popBackStack()
+        }
     }
 
     private fun observeViewModel() {

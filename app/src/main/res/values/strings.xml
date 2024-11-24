@@ -41,10 +41,10 @@
     <string name="text_there_is_no_hosts">There is no hosts</string>
     <string name="manage_ips">Manage ips</string>
     <string name="ip" translatable="false">IP</string>
-    <string name="ip_error">Введите IP в обычном формате или CIDR, или диапазон с тире.</string>
-    <string name="done">Готово</string>
-    <string name="title_input_company_url">Введите хост компании</string>
-    <string name="hint_company">Хост компании</string>
-    <string name="services">Сервисы</string>
+    <string name="done">Done</string>
+    <string name="title_input_company_url">Input company host</string>
+    <string name="hint_company">Company host</string>
+    <string name="services">Services</string>
     <string name="text_services_not_found">Services not found</string>
+    <string name="ip_error">Input IP in simple format or CIDR, or range with dash</string>
 </resources>

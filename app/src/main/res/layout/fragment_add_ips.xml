@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -12,53 +13,53 @@
         android:background="@color/md_theme_background"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         app:navigationIcon="@drawable/ic_arrow_left"
         app:title="@string/manage_ips" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/input_ip"
-        android:layout_width="0dp"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:clipToPadding="false"
-        android:hint="@string/ip"
-        android:padding="0dp"
-        app:boxBackgroundColor="@color/md_theme_surfaceContainerHighest_highContrast"
-        app:boxBackgroundMode="outline"
-        app:boxCornerRadiusBottomEnd="@dimen/input_layout_corner_radius"
-        app:boxCornerRadiusBottomStart="@dimen/input_layout_corner_radius"
-        app:boxCornerRadiusTopEnd="@dimen/input_layout_corner_radius"
-        app:boxCornerRadiusTopStart="@dimen/input_layout_corner_radius"
-        app:boxStrokeWidth="0dp"
-        app:boxStrokeWidthFocused="0dp"
-        app:layout_constraintEnd_toStartOf="@id/add_button"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
 
-        <EditText
-            android:id="@+id/et_ip"
-            android:layout_width="match_parent"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/input_ip"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_margin="0dp"
-            android:autofillHints=""
-            android:inputType="textEmailAddress"
-            tools:ignore="LabelFor" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:layout_margin="10dp"
+            android:clipToPadding="false"
+            android:hint="@string/ip"
+            android:padding="0dp"
+            app:boxBackgroundColor="@color/md_theme_surfaceContainerHighest_highContrast"
+            app:boxBackgroundMode="outline"
+            app:boxCornerRadiusBottomEnd="@dimen/input_layout_corner_radius"
+            app:boxCornerRadiusBottomStart="@dimen/input_layout_corner_radius"
+            app:boxCornerRadiusTopEnd="@dimen/input_layout_corner_radius"
+            app:boxCornerRadiusTopStart="@dimen/input_layout_corner_radius"
+            app:boxStrokeWidth="0dp"
+            app:boxStrokeWidthFocused="0dp"
+            android:layout_weight="1">
 
+            <EditText
+                android:id="@+id/et_ip"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="0dp"
+                android:autofillHints=""
+                android:inputType="textEmailAddress"
+                tools:ignore="LabelFor" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/add_button"
-        style="@style/Widget.Material3.Button.IconButton.Filled"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        app:icon="@drawable/baseline_add_24"
-        app:iconSize="32dp"
-        app:iconTint="@color/md_theme_background"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/add_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:icon="@drawable/baseline_add_24"
+            app:iconSize="32dp"
+            app:iconTint="@color/md_theme_background"
+            android:layout_marginEnd="10dp"/>
+    </LinearLayout>
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/ips_recyclerview"
@@ -67,19 +68,14 @@
         android:layout_marginTop="16dp"
         android:orientation="vertical"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintBottom_toTopOf="@id/done_button"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar"
-        tools:listitem="@layout/input_ip_item" />
+        tools:listitem="@layout/input_ip_item"
+        android:layout_weight="1"/>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/done_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/done"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_margin="16dp"/>
+        android:layout_margin="16dp"
+        android:text="@string/done" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

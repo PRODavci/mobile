@@ -10,7 +10,7 @@
         android:id="@+id/textViewName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:textSize="18sp"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/labelName"
@@ -20,7 +20,8 @@
         android:id="@+id/labelName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Имя сервиса:"
+        android:text="Имя сервиса: "
+        android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/textViewName" />
 
@@ -30,6 +31,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
+        android:textSize="20sp"
         app:layout_constraintStart_toEndOf="@id/labelProtocol"
         app:layout_constraintTop_toBottomOf="@id/textViewName" />
 
@@ -37,8 +39,9 @@
         android:id="@+id/labelProtocol"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Протокол:"
+        android:text="Протокол: "
         app:layout_constraintStart_toStartOf="parent"
+        android:textSize="20sp"
         app:layout_constraintTop_toTopOf="@id/textViewProtocol" />
 
     <!-- Порт -->
@@ -48,14 +51,16 @@
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/labelPort"
+        android:textSize="20sp"
         app:layout_constraintTop_toBottomOf="@id/textViewProtocol" />
 
     <TextView
         android:id="@+id/labelPort"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Порт:"
+        android:text="Порт: "
         app:layout_constraintStart_toStartOf="parent"
+        android:textSize="20sp"
         app:layout_constraintTop_toTopOf="@id/textViewPort" />
 
     <!-- Версия продукта -->
@@ -64,6 +69,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
+        android:textSize="20sp"
         app:layout_constraintStart_toEndOf="@id/labelProductVersion"
         app:layout_constraintTop_toBottomOf="@id/textViewPort" />
 
@@ -71,8 +77,9 @@
         android:id="@+id/labelProductVersion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Версия продукта:"
+        android:text="Версия продукта: "
         app:layout_constraintStart_toStartOf="parent"
+        android:textSize="20sp"
         app:layout_constraintTop_toTopOf="@id/textViewProductVersion" />
 
     <!-- Тип ОС -->
@@ -82,13 +89,15 @@
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/labelOstype"
+        android:textSize="20sp"
         app:layout_constraintTop_toBottomOf="@id/textViewProductVersion" />
 
     <TextView
         android:id="@+id/labelOstype"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Тип ОС:"
+        android:text="Тип ОС: "
+        android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/textViewOstype" />
 
@@ -99,13 +108,15 @@
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/labelConf"
+        android:textSize="20sp"
         app:layout_constraintTop_toBottomOf="@id/textViewOstype" />
 
     <TextView
         android:id="@+id/labelConf"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Конфигурация:"
+        android:text="Конфигурация: "
+        android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/textViewConf" />
 
@@ -116,6 +127,7 @@
         android:layout_height = "wrap_content"
         android:maxLines = "1"
         app:layout_constraintEnd_toEndOf="parent"
+        android:textSize="20sp"
         app:layout_constraintStart_toEndOf="@id/labelIdHostId"
         app:layout_constraintTop_toBottomOf="@id/textViewConf"/>
 
@@ -123,8 +135,9 @@
         android:id="@+id/labelIdHostId"
         android:layout_width = "wrap_content"
         android:layout_height = "wrap_content"
-        android:text = "ID и Host ID:"
+        android:text = "ID и Host ID: "
         app:layout_constraintStart_toStartOf="parent"
+        android:textSize="20sp"
         app:layout_constraintTop_toTopOf="@id/textViewIdHostId"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

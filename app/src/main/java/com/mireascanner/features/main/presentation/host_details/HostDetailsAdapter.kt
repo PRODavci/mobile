@@ -45,7 +45,7 @@ class HostServiceAdapter : ListAdapter<HostServiceResponse, HostServiceAdapter.H
             }
             ostypeTextView.text = service.ostype ?: "N/A"
             confTextview.text = service.conf
-            idHostIdTextview.text = "ID:${service.id}, Host ID:${service.host_id}"
+            idHostIdTextview.text = "${service.id}, ${service.host_id}"
         }
     }
 
