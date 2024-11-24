@@ -8,6 +8,7 @@
 
     <fragment
         android:id="@+id/signInFragment"
+        tools:layout="@layout/fragment_sign_in"
         android:name="com.mireascanner.features.auth.presentation.sign_in.SignInFragment"
         android:label="SignInFragment">
         <action
