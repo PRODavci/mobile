@@ -28,6 +28,10 @@ class AuthRepositoryImpl @Inject constructor(
                     remoteResult.data.tokens.accessToken,
                     remoteResult.data.tokens.refreshToken
                 )
+                remoteAuthRepository.pushToken(
+                    remoteResult.data.tokens.accessToken,
+                    firebaseTokenSharedPreferencesManager.getToken()
+                )
                 Result.Success(remoteResult.data.user.toDomain())
             }
 
@@ -44,6 +48,10 @@ class AuthRepositoryImpl @Inject constructor(
                 localAuthRepository.saveAccessAndRefreshTokens(
                     remoteResult.data.tokens.accessToken,
                     remoteResult.data.tokens.refreshToken
+                )
+                remoteAuthRepository.pushToken(
+                    remoteResult.data.tokens.accessToken,
+                    firebaseTokenSharedPreferencesManager.getToken()
                 )
                 Result.Success(remoteResult.data.user.toDomain())
             }
