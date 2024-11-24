@@ -28,7 +28,7 @@ class ScanFragment : Fragment() {
     private fun initUi() {
         val hostsIds = arguments?.getIntArray("HostsIds")
         val hostsIps = arguments?.getStringArray("HostsIps")
-        if(hostsIps != null && hostsIds != null) {
+        if(hostsIps != null && hostsIds != null && hostsIds.isNotEmpty() && hostsIps.isNotEmpty()) {
             val hosts = arrayListOf<Host>()
             for(i in hostsIps.indices){
                 hosts.add(Host(hostsIds[i], hostsIps[i]))

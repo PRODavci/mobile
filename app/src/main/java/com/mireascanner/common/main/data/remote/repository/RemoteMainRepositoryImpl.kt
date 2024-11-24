@@ -1,5 +1,6 @@
 package com.mireascanner.common.main.data.remote.repository
 
+import com.mireascanner.common.exceptions.HostDetailsNotFoundException
 import com.mireascanner.common.exceptions.UnauthorizedException
 import com.mireascanner.common.main.data.remote.model.AllScansResponse
 import com.mireascanner.common.main.data.remote.model.ScanDetailsResponse
@@ -38,7 +39,10 @@ class RemoteMainRepositoryImpl @Inject constructor(
             val result = mainNetworkService.getScanDetails(accessToken, scanId)
             if (result.code() == 200) {
                 Result.Success(result.body()!!)
-            } else {
+            } else if(result.code() == 404){
+                Result.Error(HostDetailsNotFoundException())
+            }
+            else {
                 Result.Error(Exception())
             }
         } catch (e: Exception) {

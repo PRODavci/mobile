@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mireascanner.R
 import com.mireascanner.common.ui.LoadingDialog
@@ -59,6 +60,7 @@ class HostDetailsFragment : Fragment() {
                         }
 
                         is HostDetailsEffect.CancelLoader -> {
+                            binding.hostDetailsRefresh.isRefreshing = false
                             loadingDialog.dismiss()
                         }
 
@@ -74,6 +76,7 @@ class HostDetailsFragment : Fragment() {
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.state.collect { state ->
                     Log.d("HostDetailsFragment", state.toString())
+                    binding.hostDetailsRefresh.isRefreshing = false
                     if (state.error != null) {
                         showErrorSnackbar(
                             requireContext(),
@@ -82,7 +85,11 @@ class HostDetailsFragment : Fragment() {
                         )
                     } else if (state.details != null) {
                         Log.d("HostDetailsFragment", "here")
-                        adapter.submitList(state.details.services)
+                        if (state.details.services.isEmpty()) {
+                            binding.tvNoServises.visibility = View.VISIBLE
+                        } else {
+                            adapter.submitList(state.details.services)
+                        }
                     }
                 }
             }
@@ -94,8 +101,15 @@ class HostDetailsFragment : Fragment() {
         binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
         loadingDialog = LoadingDialog(requireContext())
+        loadingDialog.show()
+
         binding.hostDetailsRefresh.setOnRefreshListener {
+            binding.tvNoServises.visibility = View.GONE
             viewModel.handleAction(HostDetailsAction.GetHostDetails(hostId!!))
+        }
+
+        binding.toolbar.setNavigationOnClickListener {
+            findNavController().popBackStack()
         }
         val hostIdArgument = arguments?.getInt("HostId")
         if (hostIdArgument != null) {
