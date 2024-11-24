@@ -41,4 +41,5 @@
     <string name="services">Сервисы</string>
     <string name="text_services_not_found">Сервисы не найдены</string>
     <string name="ip_error">Введите IP в обычном формате или CIDR, или диапазон с тире.</string>
+    <string name="title_vulnerabilities">Уязвимости</string>
 </resources>

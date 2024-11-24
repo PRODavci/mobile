@@ -35,7 +35,7 @@ class HostServiceAdapter : ListAdapter<HostServiceResponse, HostServiceAdapter.H
 //        private val idHostIdTextview : TextView = itemView.findViewById(R.id.textViewIdHostId)
 
         fun bind(service: HostServiceResponse) {
-            nameTextView.text = service.name
+            nameTextView.text = service.name ?: "N/A"
             protocolTextView.text = service.protocol
             portTextView.text = service.port.toString()
             productVersionTextView.text = if (service.product != null && service.version != null) {
